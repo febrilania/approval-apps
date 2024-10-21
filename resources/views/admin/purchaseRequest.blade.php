@@ -35,6 +35,7 @@
                             <div>Detail</div>
                             <div>Edit</div>
                             <div>Delete</div>
+                            <div>Ajukan</div>
                         </div>
                     </th>
                 </tr>
@@ -55,6 +56,7 @@
                         <a href="" class="btn btn-success"><i class="ri-file-list-3-line"></i></a>
                         <a href="" class="btn btn-primary"><i class="ri-edit-box-line"></i></a>
                         <a href="" class="btn btn-danger"><i class="ri-delete-bin-line"></i></a>
+                        <a href="" class="btn btn-danger"><i class="ri-corner-up-right-double-line"></i></a>
                     </td>
                 </tr>
                 @empty
