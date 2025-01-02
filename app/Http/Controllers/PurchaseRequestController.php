@@ -175,7 +175,26 @@ class PurchaseRequestController extends Controller
         ]);
     }
 
-    public function deletePurchaseRequest(){
-        
+    public function deletePurchaseRequest() {}
+
+    public function submitAjukan($id)
+    {
+        // $idRequest =  PurchaseRequest::findOrFail($id);
+        // if ($idRequest->status_berkas === 'draft') {
+        //     $idRequest->status_berkas = 'process';
+        //     $idRequest->save();
+        //     return redirect()->back()->with('success', 'Purchase request berhasil diajukan.');
+        // }
+        // return redirect()->back()->with('error', 'Purchase request tidak bisa diajukan.');
+        $idRequest =  PurchaseRequest::findOrFail($id);
+        if ($idRequest->status_berkas !== 'draft') {
+            return redirect()->back()->with('error', 'Purchase request tidak bisa diajukan karena sudah dalam proses pengajuan.');
+        }
+
+        $idRequest->status_berkas = 'process';
+        $idRequest->save();
+
+
+        return redirect()->back()->with('success', 'Purchase request berhasil diajukan.');
     }
 }

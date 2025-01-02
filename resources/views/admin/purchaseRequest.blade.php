@@ -7,8 +7,13 @@
             <a href="{{route('purchaseRequestForm')}}" class="btn btn-primary">Tambah Pengajuan</a>
 
             @if(session('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success my-2">
                 {{ session('success') }}
+            </div>
+            @endif
+            @if(session('error'))
+            <div class="alert alert-danger my-2">
+                {{ session('error') }}
             </div>
             @endif
         </div>
@@ -56,7 +61,8 @@
                         <a href="" class="btn btn-success"><i class="ri-file-list-3-line"></i></a>
                         <a href="" class="btn btn-primary"><i class="ri-edit-box-line"></i></a>
                         <a href="" class="btn btn-danger"><i class="ri-delete-bin-line"></i></a>
-                        <a href="" class="btn btn-danger"><i class="ri-corner-up-right-double-line"></i></a>
+                        <a href="{{route('ajukanPP',$purchase_request->id)}}" class="btn btn-secondary"><i
+                                class="ri-arrow-right-circle-fill"></i></a>
                     </td>
                 </tr>
                 @empty

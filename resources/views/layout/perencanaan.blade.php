@@ -44,7 +44,7 @@
                             <span>Item</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link"><i class="ri-draft-line"></i>
+                        <a href="{{route('PRperencanaan')}}" class="nav-link"><i class="ri-draft-line"></i>
                             <span>Request</span></a>
                     </li>
                     <li class="nav-item">

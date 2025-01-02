@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('approval_rules', function (Blueprint $table) {
+        Schema::create('approval_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('approval_id')->constrained('approvals')->onDelete('cascade');
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->text('catatan')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('approval_rules');
+        Schema::dropIfExists('approval_logs');
     }
 };

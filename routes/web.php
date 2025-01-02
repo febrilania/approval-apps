@@ -75,6 +75,7 @@ Route::middleware(['auth', 'permission:1'])->group(function () {
     // Route::get('admin/addDetailPurchaseRequestForm', [PurchaseRequestController::class, 'addDetailPurchaseRequestForm'])->name('addDetailPurchaseRequestForm');
     Route::get('/purchase-request', [PurchaseRequestController::class, 'showPurchaseRequestForm'])->name('purchaseRequestForm');
     Route::post('/purchase-request/add-detail', [PurchaseRequestController::class, 'addPurchaseRequest'])->name('addPurchaseRequest');
+    Route::get('/admin/ajukanPP/{id}', [PurchaseRequestController::class, 'submitAjukan'])->name('ajukanPP');
 });
 
 
@@ -84,6 +85,7 @@ Route::middleware(['auth', 'permission:2'])->group(function () {
     Route::get('/user/item', [ItemController::class, 'user'])->name('itemUser');
     Route::get('/user/editProfile', [AuthController::class, 'editProfile'])->name('editProfileUser');
     Route::get('/user/profile', [AuthController::class, 'profile'])->name('profileUser');
+    Route::get('/user/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRUSer');
 });
 
 
@@ -93,6 +95,7 @@ Route::middleware(['auth', 'permission:3'])->group(function () {
     Route::get('/sarpras/item', [ItemController::class, 'sarpras'])->name('itemSarpras');
     Route::get('/sarpras/editProfile', [AuthController::class, 'editProfile'])->name('editProfileSarpras');
     Route::get('/sarpras/profile', [AuthController::class, 'profile'])->name('profileSarpras');
+    Route::get('/sarpras/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRsarpras');
 });
 
 
@@ -102,6 +105,7 @@ Route::middleware(['auth', 'permission:4'])->group(function () {
     Route::get('/perencanaan/item', [ItemController::class, 'perencanaan'])->name('itemPerencanaan');
     Route::get('/perencanaan/editProfile', [AuthController::class, 'editProfile'])->name('editProfilePerencanaan');
     Route::get('/perencanaan/profile', [AuthController::class, 'profile'])->name('profilePerencanaan');
+    Route::get('/perencanaan/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRperencanaan');
 });
 
 
