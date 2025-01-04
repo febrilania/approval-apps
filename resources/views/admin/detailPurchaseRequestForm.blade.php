@@ -25,20 +25,19 @@
             </div>
             <div class="mb-3">
                 <label for="quantity" class="form-label">Quantity</label>
-                <input class="form-control" type="number" name="quantity" id="quantity" required>
+                <input class="form-control" type="number" name="quantity" id="quantity">
             </div>
             <div class="mb-3">
                 <label for="harga_pengajuan" class="form-label">Harga Pengajuan</label>
-                <input class="form-control" type="number" name="harga_pengajuan" id="harga_pengajuan" step="0.01"
-                    required>
+                <input class="form-control" type="number" name="harga_pengajuan" id="harga_pengajuan" step="0.01">
             </div>
             <div class="mb-3">
                 <label for="alasan_pembelian" class="form-label">Alasan Pembelian</label>
-                <input class="form-control" type="text" name="alasan_pembelian" id="alasan_pembelian" required>
+                <input class="form-control" type="text" name="alasan_pembelian" id="alasan_pembelian">
             </div>
             <div class="mb-3">
                 <label class="form-label" for="rencana_penempatan">Rencana Penempatan</label>
-                <input class="form-control" type="text" name="rencana_penempatan" id="rencana_penempatan" required>
+                <input class="form-control" type="text" name="rencana_penempatan" id="rencana_penempatan">
             </div>
             <div class="mb-3">
                 <label class="form-label" for="catatan">Catatan</label>

@@ -6,6 +6,7 @@ use App\Models\AkunAnggaran;
 use App\Models\Item;
 use App\Models\PurchaseRequest;
 use App\Models\PurchaseRequestDetail;
+use App\Models\Approval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -193,6 +194,20 @@ class PurchaseRequestController extends Controller
 
         $idRequest->status_berkas = 'process';
         $idRequest->save();
+
+        $stages = [
+            ['approver_id' => 2, 'stage' => 1, 'is_current_stage' => true],
+            ['approver_id' => 3, 'stage' => 2, 'is_current_stage' => false],
+            ['approver_id' => 4, 'stage' => 3, 'is_current_stage' => false],
+            ['approver_id' => 5, 'stage' => 4, 'is_current_stage' => false],
+            ['approver_id' => 4, 'stage' => 5, 'is_current_stage' => false],
+            ['approver_id' => 3, 'stage' => 6, 'is_current_stage' => false],
+            ['approver_id' => 2, 'stage' => 7, 'is_current_stage' => false],
+        ];
+
+        foreach ($stages as $stageData) {
+            $idRequest->approvals()->create($stageData);
+        }
 
 
         return redirect()->back()->with('success', 'Purchase request berhasil diajukan.');

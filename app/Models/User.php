@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PurchaseRequest::class, 'requestor_id');
     }
+
+    public function approval()
+    {
+        return $this->hasMany(Approval::class, 'approver_id');
+    }
 }

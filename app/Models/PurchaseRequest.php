@@ -26,4 +26,8 @@ class PurchaseRequest extends Model
     {
         return $this->hasMany(PurchaseRequestDetail::class, 'purchase_request_id');
     }
+    public function approvals()
+    {
+        return $this->hasMany(Approval::class, 'purchase_request_id');
+    }
 }

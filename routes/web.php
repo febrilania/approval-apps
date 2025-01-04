@@ -75,6 +75,7 @@ Route::middleware(['auth', 'permission:1'])->group(function () {
     // Route::get('admin/addDetailPurchaseRequestForm', [PurchaseRequestController::class, 'addDetailPurchaseRequestForm'])->name('addDetailPurchaseRequestForm');
     Route::get('/purchase-request', [PurchaseRequestController::class, 'showPurchaseRequestForm'])->name('purchaseRequestForm');
     Route::post('/purchase-request/add-detail', [PurchaseRequestController::class, 'addPurchaseRequest'])->name('addPurchaseRequest');
+    Route::post('/add-detailPR', [PurchaseRequestController::class, 'storeDetailPurchaseRequest'])->name('storeDetailPurchaseRequest');
     Route::get('/admin/ajukanPP/{id}', [PurchaseRequestController::class, 'submitAjukan'])->name('ajukanPP');
 });
 
@@ -115,6 +116,7 @@ Route::middleware(['auth', 'permission:5'])->group(function () {
     Route::get('/pengadaan/item', [ItemController::class, 'pengadaan'])->name('itemPengadaan');
     Route::get('/pengadaan/editProfile', [AuthController::class, 'editProfile'])->name('editProfilePengadaan');
     Route::get('/pengadaan/profile', [AuthController::class, 'profile'])->name('profilePengadaan');
+    Route::get('/pengadaan/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRpengadaan');
 });
 
 
@@ -124,6 +126,7 @@ Route::middleware(['auth', 'permission:6'])->group(function () {
     Route::get('/wakilRektor2/item', [ItemController::class, 'warek'])->name('itemWarek');
     Route::get('/wakilRektor2/editProfile', [AuthController::class, 'editProfile'])->name('editProfileWarek');
     Route::get('/wakilRektor2/profile', [AuthController::class, 'profile'])->name('profileWarek');
+    Route::get('/wakilRektor2/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRwarek');
 });
 
 Route::middleware(['auth'])->group(function () {
