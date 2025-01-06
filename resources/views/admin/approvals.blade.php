@@ -1,0 +1,1 @@
+<a href="{{route('approve', $purchase_request->id)}}">setujui</a>

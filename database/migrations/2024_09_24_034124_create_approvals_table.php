@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('purchase_request_id')->constrained()->cascadeOnDelete();
             $table->unsignedBigInteger('approver_id');
-            $table->foreign('approver_id')->references('id')->on('users');
+            $table->foreign('approver_id')->references('id')->on('users')->onDelete('cascade');
             // $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             // $table->date('approval_date')->nullable();
             // $table->timestamps();

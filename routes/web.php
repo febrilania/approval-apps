@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
@@ -75,8 +76,10 @@ Route::middleware(['auth', 'permission:1'])->group(function () {
     // Route::get('admin/addDetailPurchaseRequestForm', [PurchaseRequestController::class, 'addDetailPurchaseRequestForm'])->name('addDetailPurchaseRequestForm');
     Route::get('/purchase-request', [PurchaseRequestController::class, 'showPurchaseRequestForm'])->name('purchaseRequestForm');
     Route::post('/purchase-request/add-detail', [PurchaseRequestController::class, 'addPurchaseRequest'])->name('addPurchaseRequest');
-    Route::post('/add-detailPR', [PurchaseRequestController::class, 'storeDetailPurchaseRequest'])->name('storeDetailPurchaseRequest');
+    // Route::post('/add-detailPR', [PurchaseRequestController::class, 'storeDetailPurchaseRequest'])->name('storeDetailPurchaseRequest');
     Route::get('/admin/ajukanPP/{id}', [PurchaseRequestController::class, 'submitAjukan'])->name('ajukanPP');
+    Route::get('/admin/approval{id}', [ApprovalController::class, 'index'])->name('approvalPage');
+    Route::get('/admin/approval/{id}', [ApprovalController::class, 'approve'])->name('approve');
 });
 
 
