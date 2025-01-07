@@ -1,6 +1,11 @@
 @extends('layout.pengadaan')
 <div class="main main-app p-3 p-lg-4">
     <div class="card shadow-sm p-3 p-lg-4">
+        @if(session('success'))
+        <div class="alert alert-success my-2">
+            {{ session('success') }}
+        </div>
+        @endif
         <table class="table">
             <thead>
                 <tr>
@@ -37,7 +42,8 @@
                     <td class="text-center">
                         <a href="" class="btn btn-success"><i class="ri-file-list-3-line"></i></a>
                         <a href="" class="btn btn-primary"><i class="ri-edit-box-line"></i></a>
-                        <a href="" class="btn btn-danger"><i class="ri-delete-bin-line"></i></a>
+                        <a href="{{route('approvepengadaan',['id' => $purchase_request->id])}}"
+                            class="btn btn-danger"><i class="ri-delete-bin-line"></i></a>
                     </td>
                 </tr>
                 @endif

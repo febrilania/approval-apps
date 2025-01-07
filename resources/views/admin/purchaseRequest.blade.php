@@ -35,11 +35,13 @@
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+
                     <th scope="col">
-                        <div class="text-center d-flex justify-content-center gap-2">
+                        <div class="d-flex justify-content-center gap-3">
                             <div>Detail</div>
                             <div>Edit</div>
                             <div>Delete</div>
+                            <div>Tracking</div>
                             <div>Ajukan</div>
                         </div>
                     </th>
@@ -57,10 +59,11 @@
                         @endif
                     </td>
                     <td>{{$purchase_request->status_berkas}}</td>
-                    <td class="text-center">
+                    <td class="text-center d-flex justify-content-center gap-3">
                         <a href="" class="btn btn-success"><i class="ri-file-list-3-line"></i></a>
                         <a href="" class="btn btn-primary"><i class="ri-edit-box-line"></i></a>
                         <a href="" class="btn btn-danger"><i class="ri-delete-bin-line"></i></a>
+                        <a href="" class="btn btn-warning"><i class="ri-pin-distance-fill"></i></a>
                         <a href="{{route('ajukanPP',$purchase_request->id)}}" class="btn btn-secondary"><i
                                 class="ri-arrow-right-circle-fill"></i></a>
                     </td>

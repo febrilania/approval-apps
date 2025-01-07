@@ -78,7 +78,7 @@ Route::middleware(['auth', 'permission:1'])->group(function () {
     Route::post('/purchase-request/add-detail', [PurchaseRequestController::class, 'addPurchaseRequest'])->name('addPurchaseRequest');
     // Route::post('/add-detailPR', [PurchaseRequestController::class, 'storeDetailPurchaseRequest'])->name('storeDetailPurchaseRequest');
     Route::get('/admin/ajukanPP/{id}', [PurchaseRequestController::class, 'submitAjukan'])->name('ajukanPP');
-    Route::get('/admin/approval{id}', [ApprovalController::class, 'index'])->name('approvalPage');
+    // Route::get('/admin/approval{id}', [ApprovalController::class, 'index'])->name('approvalPage');
     Route::get('/admin/approval/{id}', [ApprovalController::class, 'approve'])->name('approve');
 });
 
@@ -100,6 +100,7 @@ Route::middleware(['auth', 'permission:3'])->group(function () {
     Route::get('/sarpras/editProfile', [AuthController::class, 'editProfile'])->name('editProfileSarpras');
     Route::get('/sarpras/profile', [AuthController::class, 'profile'])->name('profileSarpras');
     Route::get('/sarpras/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRsarpras');
+    Route::get('/sarpras/approval/{id}', [ApprovalController::class, 'approve'])->name('approvesarpras');
 });
 
 
@@ -110,6 +111,7 @@ Route::middleware(['auth', 'permission:4'])->group(function () {
     Route::get('/perencanaan/editProfile', [AuthController::class, 'editProfile'])->name('editProfilePerencanaan');
     Route::get('/perencanaan/profile', [AuthController::class, 'profile'])->name('profilePerencanaan');
     Route::get('/perencanaan/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRperencanaan');
+    Route::get('/perencanaan/approval/{id}', [ApprovalController::class, 'approve'])->name('approveperencanaan');
 });
 
 
@@ -120,6 +122,7 @@ Route::middleware(['auth', 'permission:5'])->group(function () {
     Route::get('/pengadaan/editProfile', [AuthController::class, 'editProfile'])->name('editProfilePengadaan');
     Route::get('/pengadaan/profile', [AuthController::class, 'profile'])->name('profilePengadaan');
     Route::get('/pengadaan/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRpengadaan');
+    Route::get('/pengadaan/approval/{id}', [ApprovalController::class, 'approve'])->name('approvepengadaan');
 });
 
 
@@ -130,6 +133,7 @@ Route::middleware(['auth', 'permission:6'])->group(function () {
     Route::get('/wakilRektor2/editProfile', [AuthController::class, 'editProfile'])->name('editProfileWarek');
     Route::get('/wakilRektor2/profile', [AuthController::class, 'profile'])->name('profileWarek');
     Route::get('/wakilRektor2/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRwarek');
+    Route::get('/wakilrektor2/approval/{id}', [ApprovalController::class, 'approve'])->name('approve');
 });
 
 Route::middleware(['auth'])->group(function () {

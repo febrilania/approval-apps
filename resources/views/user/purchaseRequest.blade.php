@@ -1,6 +1,11 @@
 @extends('layout.user')
 <div class="main main-app p-3 p-lg-4">
     <div class="card shadow-sm p-3 p-lg-4">
+        @if(session('success'))
+        <div class="alert alert-success my-2">
+            {{ session('success') }}
+        </div>
+        @endif
         <table class="table">
             <thead>
                 <tr>
