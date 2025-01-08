@@ -63,7 +63,10 @@
                         <a href="" class="btn btn-success"><i class="ri-file-list-3-line"></i></a>
                         <a href="" class="btn btn-primary"><i class="ri-edit-box-line"></i></a>
                         <a href="" class="btn btn-danger"><i class="ri-delete-bin-line"></i></a>
-                        <a href="" class="btn btn-warning"><i class="ri-pin-distance-fill"></i></a>
+                        <a href="{{ route('trackingAdmin', ['purchase_request_id' => $purchase_request->id]) }}"
+                            class="btn btn-warning">
+                            <i class="ri-pin-distance-fill"></i>
+                        </a>
                         <a href="{{route('ajukanPP',$purchase_request->id)}}" class="btn btn-secondary"><i
                                 class="ri-arrow-right-circle-fill"></i></a>
                     </td>

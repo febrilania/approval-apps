@@ -80,6 +80,7 @@ Route::middleware(['auth', 'permission:1'])->group(function () {
     Route::get('/admin/ajukanPP/{id}', [PurchaseRequestController::class, 'submitAjukan'])->name('ajukanPP');
     // Route::get('/admin/approval{id}', [ApprovalController::class, 'index'])->name('approvalPage');
     Route::get('/admin/approval/{id}', [ApprovalController::class, 'approve'])->name('approve');
+    Route::get('/admin/tracking/{purchase_request_id}', [ApprovalController::class, 'tracking'])->name('trackingAdmin');
 });
 
 
