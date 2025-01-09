@@ -7,16 +7,30 @@
         <div class="progress-bar-container">
             <div class="step-progress">
                 @foreach ($approvals as $approval)
-                <div
-                    class="step {{ $approval->is_current_stage ? 'active' : ($approval->is_approved ? 'completed' : 'pending') }}">
+                @php
+                $stepClass = '';
+                if ($approval->is_current_stage) {
+                $stepClass = 'active';
+                } elseif ($approval->is_approved) {
+                $stepClass = 'completed';
+                } elseif ($approval->is_approved == false && $approval->approved_at != null) {
+                $stepClass = 'rejected';
+                } else {
+                $stepClass = 'pending';
+                }
+                @endphp
+                <div class="step {{ $stepClass }}">
                     <div class="step-icon">{{ $loop->iteration }}</div>
                     <p>{{ $approval->stage }}</p>
                     @if ($approval->is_approved)
                     <small>{{ $approval->user->name }}</small>
-                    <small>{{ $approval->approved_at }}</small>
+                    <small class="text-success">Disetujui</small>
+                    @elseif ($approval->is_approved == false && $approval->approved_at != null)
+                    <small>{{ $approval->user->name }}</small>
+                    <small class="text-danger">Ditolak</small>
                     @else
-                    <small>{{$approval->user->name}}</small>
-                    <small>pending</small>
+                    <small>{{ $approval->user->name }}</small>
+                    <small class="text-warning">Pending</small>
                     @endif
                 </div>
                 @endforeach
@@ -25,7 +39,6 @@
 
         <!-- Status Keseluruhan -->
         <div class="mt-4">
-
             <p class="fw-bold">Status:
                 <span class="
                         {{ $purchaseRequest->status_berkas === 'approved' ? 'text-success' : '' }}
@@ -103,6 +116,18 @@
         color: #fff;
     }
 
+    .step.rejected .step-icon {
+        background: #dc3545 !important;
+        /* Warna merah */
+        color: #fff !important;
+    }
+
+    .step.rejected .step-icon::after {
+        content: '✗' !important;
+        /* Icon silang */
+    }
+
+
     .step p {
         margin: 0;
         font-size: 14px;
@@ -115,5 +140,10 @@
         font-size: 12px;
         color: #6c757d;
         text-align: center;
+    }
+
+    .step small.text-danger {
+        color: #dc3545;
+        /* Warna teks merah untuk status ditolak */
     }
 </style>

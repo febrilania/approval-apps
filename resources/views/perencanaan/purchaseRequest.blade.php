@@ -26,8 +26,8 @@
                 <td scope="col">
                     <div class="text-center d-flex justify-content-center gap-2">
                         <div>Detail</div>
-                        <div>Tolak</div>
-                        <div>Terima</div>
+                        <div>Approve</div>
+                        <div>Reject</div>
                     </div>
                 </td>
             </tr>
@@ -40,9 +40,10 @@
                     <td>{{ $purchase_request->created_at->format('dmyHis') }}</td>
                     <td>{{ $purchase_request->status_berkas }}</td>
                     <td class="text-center">
-                        <a href="" class="btn btn-success"><i class="ri-file-list-3-line"></i></a>
                         <a href="" class="btn btn-primary"><i class="ri-edit-box-line"></i></a>
                         <a href="{{route('approveperencanaan',['id' => $purchase_request->id])}}"
+                            class="btn btn-success"><i class="ri-file-list-3-line"></i></a>
+                        <a href="{{route('rejectPerencanaan',['id'=> $purchase_request->id])}}"
                             class="btn btn-danger"><i class="ri-delete-bin-line"></i></a>
                     </td>
                 </tr>

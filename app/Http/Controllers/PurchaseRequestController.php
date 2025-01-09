@@ -13,24 +13,6 @@ use Illuminate\Support\Facades\Auth;
 
 class PurchaseRequestController extends Controller
 {
-    // public function index()
-    // {
-    //     $requestor_id = PurchaseRequest::with('user')->get();
-    //     $purchase_requests = PurchaseRequest::all();
-    //     if (Auth::user()->role_id === 1) {
-    //         return view('admin/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-    //     } elseif (Auth::user()->role_id === 2) {
-    //         return view('user/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-    //     } elseif (Auth::user()->role_id === 3) {
-    //         return view('sarpras/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-    //     } elseif (Auth::user()->role_id === 4) {
-    //         return view('perencanaan/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-    //     } elseif (Auth::user()->role_id === 5) {
-    //         return view('pengadaan/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-    //     } elseif (Auth::user()->role_id === 6) {
-    //         return view('warek/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-    //     }
-    // }
     public function index()
     {
         $userId = Auth::id(); // ID user yang sedang login
@@ -69,63 +51,6 @@ class PurchaseRequestController extends Controller
         }
     }
 
-
-
-
-    // public function addPurchaseRequest(Request $request)
-    // {
-    //     $requestor = Auth::user();
-    //     $validatedData = Validator::make($request->all(), [
-    //         'pengajuan' => 'required|numeric',          // Menggunakan 'numeric' untuk angka
-    //         'pembelian' => 'nullable|numeric',          // Menggunakan 'numeric' untuk angka
-    //         'file_nota' => 'nullable|mimes:pdf',        // 'mimes:pdf' untuk validasi file PDF
-    //         'status_berkas' => 'nullable|string|in:pending,approved,rejected' // Menggunakan 'in' untuk validasi enum manual
-    //     ]);
-
-    //     if ($validatedData->fails()) return redirect()->back()->withInput()->withErrors($validatedData);
-
-    //     // Atur nilai default secara manual jika 'status_berkas' tidak ada
-    //     if (!$request->has('status_berkas')) {
-    //         $validatedData['status_berkas'] = 'pending';
-    //     }
-
-    //     $requestor_id = $requestor->id;
-
-    //     $data['requestor_id'] = $request->requestor_id;
-    //     $data['pengajuan'] = $request->pengajuan;
-    //     $data['pembelian'] = $request->pembelian;
-    //     $data['file_nota'] = $request->file_nota;
-    //     $data['status_berkas'] = $request->status_berkas;
-
-    //     PurchaseRequest::create($data);
-
-    //     return redirect('admin/purchaseRequest')->with(['success' => 'Data berhasil ditambahkan']);
-    // }
-
-    // public function addPurchaseRequest(Request $request, $id = null)
-    // {
-
-    //     $requestor = Auth::user();
-    //     $lock = date("dmyhis");
-    //     $purchase_request_id = PurchaseRequest::find($id);
-    //     if (!$purchase_request_id) {
-    //         $purchaseRequest = PurchaseRequest::create([
-    //             'requestor_id' => $requestor->id,
-    //             'pengajuan' => 0,
-    //             'pembelian' => 0,
-    //             'status_berkas' => 'draft',
-    //             'file_nota' => null, // Kolom file_nota diset null secara default
-    //             'lock' => $lock,
-    //         ]);
-    //     }
-    // }
-
-    // public function addDetailPurchaseRequestForm()
-    // {
-    //     $items = Item::all();
-    //     $akun_anggaran = AkunAnggaran::all();
-    //     return view('admin/detailPurchaseRequestForm', compact('items', 'akun_anggaran'));
-    // }
     public function showPurchaseRequestForm()
     {
         // Hapus ID purchase request dari session jika pertama kali masuk form
@@ -220,16 +145,11 @@ class PurchaseRequestController extends Controller
 
     public function submitAjukan($id)
     {
-        // $idRequest =  PurchaseRequest::findOrFail($id);
-        // if ($idRequest->status_berkas === 'draft') {
-        //     $idRequest->status_berkas = 'process';
-        //     $idRequest->save();
-        //     return redirect()->back()->with('success', 'Purchase request berhasil diajukan.');
-        // }
-        // return redirect()->back()->with('error', 'Purchase request tidak bisa diajukan.');
         $idRequest =  PurchaseRequest::findOrFail($id);
         if ($idRequest->status_berkas !== 'draft') {
             return redirect()->back()->with('error', 'Purchase request tidak bisa diajukan karena sudah dalam proses pengajuan.');
+        } else if ($idRequest->status_berkas == 'rejected') {
+            return redirect()->back()->with('error', 'berkas pengajuan telah ditolak');
         }
 
         $idRequest->status_berkas = 'process';
