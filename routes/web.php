@@ -74,7 +74,9 @@ Route::middleware(['auth', 'permission:1'])->group(function () {
     Route::get('/admin/deletePurchaseRequest/{id}', [PurchaseRequestController::class, 'deletePurchaseRequest'])->name('deletePurchaseRequestAdmin');
     Route::get('/admin/ajukanPP/{id}', [PurchaseRequestController::class, 'submitAjukan'])->name('ajukanPP');
     Route::get('/admin/tracking/{purchase_request_id}', [ApprovalController::class, 'tracking'])->name('trackingAdmin');
-    Route::get('/admin/purchaseRequest/{id}', [PurchaseRequestController::class,'formEdit'])->name('formEditPurchaseRequestAdmin');
+    Route::get('/admin/purchaseRequest/{id}', [PurchaseRequestController::class, 'formEdit'])->name('formEditPurchaseRequestAdmin');
+    // Route::put('/admin/updatePurchaseRequest/{id}', [PurchaseRequestController::class, 'update'])->name('updatePurchaseRequestAdmin');
+    Route::put('/purchase-request/{id}', [PurchaseRequestController::class, 'update'])->name('purchaseRequest.update');
 });
 
 
