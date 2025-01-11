@@ -69,14 +69,12 @@ Route::middleware(['auth', 'permission:1'])->group(function () {
     Route::get('/admin/profile', [AuthController::class, 'profile'])->name('profileAdmin');
     Route::put('admin/editItem/{id}', [ItemController::class, 'editItem'])->name('editItem');
     Route::get('admin/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('purchaseRequest');
-    // Route::post('admin/postPurchaseRequest', [PurchaseRequestController::class, 'addPurchaseRequest'])->name('addPurchaseRequest');
-    // Route::get('admin/addDetailPurchaseRequestForm', [PurchaseRequestController::class, 'addDetailPurchaseRequestForm'])->name('addDetailPurchaseRequestForm');
     Route::get('/purchase-request', [PurchaseRequestController::class, 'showPurchaseRequestForm'])->name('purchaseRequestForm');
     Route::post('/purchase-request/add-detail', [PurchaseRequestController::class, 'addPurchaseRequest'])->name('addPurchaseRequest');
-    // Route::post('/add-detailPR', [PurchaseRequestController::class, 'storeDetailPurchaseRequest'])->name('storeDetailPurchaseRequest');
+    Route::get('/admin/deletePurchaseRequest/{id}', [PurchaseRequestController::class, 'deletePurchaseRequest'])->name('deletePurchaseRequestAdmin');
     Route::get('/admin/ajukanPP/{id}', [PurchaseRequestController::class, 'submitAjukan'])->name('ajukanPP');
-    // Route::get('/admin/approval{id}', [ApprovalController::class, 'index'])->name('approvalPage');
     Route::get('/admin/tracking/{purchase_request_id}', [ApprovalController::class, 'tracking'])->name('trackingAdmin');
+    Route::get('/admin/purchaseRequest/{id}', [PurchaseRequestController::class,'formEdit'])->name('formEditPurchaseRequestAdmin');
 });
 
 

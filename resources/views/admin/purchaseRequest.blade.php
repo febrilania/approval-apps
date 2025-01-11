@@ -61,9 +61,11 @@
                     <td>{{$purchase_request->status_berkas}}</td>
                     <td class="text-center d-flex justify-content-center gap-3">
                         <a href="" class="btn btn-success"><i class="ri-file-list-3-line"></i></a>
-                        <a href="" class="btn btn-primary"><i class="ri-edit-box-line"></i></a>
-                        <a href="" class="btn btn-danger"><i class="ri-delete-bin-line"></i></a>
-                        <a href="{{ route('trackingAdmin', ['purchase_request_id' => $purchase_request->id]) }}"
+                        <a href="{{route('formEditPurchaseRequestAdmin', $purchase_request->id)}}" class="btn btn-primary"><i class="ri-edit-box-line"></i></a>
+                        <a href="#" class="btn btn-danger"
+                            onclick="confirmDelete(event, '{{ route('deletePurchaseRequestAdmin', $purchase_request->id) }}')">
+                            <i class="ri-delete-bin-line"></i>
+                        </a> <a href="{{ route('trackingAdmin', ['purchase_request_id' => $purchase_request->id]) }}"
                             class="btn btn-warning">
                             <i class="ri-pin-distance-fill"></i>
                         </a>
@@ -80,3 +82,44 @@
         </table>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete(event, url) {
+        event.preventDefault(); // Mencegah perilaku default dari tautan
+    
+        // Menampilkan SweetAlert2 konfirmasi
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Request ini akan dihapus secara permanen.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Jika pengguna mengonfirmasi, kirim permintaan DELETE
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = url;
+    
+                var csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = '_token';
+                csrfInput.value = '{{ csrf_token() }}'; // Token CSRF dari Blade template
+    
+                var methodInput = document.createElement('input');
+                methodInput.type = 'hidden';
+                methodInput.name = '_method';
+                methodInput.value = 'DELETE';
+    
+                form.appendChild(csrfInput);
+                form.appendChild(methodInput);
+    
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+</script>

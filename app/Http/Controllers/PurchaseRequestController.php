@@ -141,7 +141,15 @@ class PurchaseRequestController extends Controller
         ]);
     }
 
-    public function deletePurchaseRequest() {}
+    public function deletePurchaseRequest($id) {
+        $purchase_request = PurchaseRequest::findOrFail($id);
+        if($purchase_request->status_berkas !== 'draft') {
+            return redirect()->back()->with('error', 'Purchase request tidak bisa dihapus karena sudah dalam proses pengajuan.');
+        }else{
+            $purchase_request->delete();
+            return redirect()->back()->with('success', 'Purchase request berhasil dihapus.');
+        }
+    }
 
     public function submitAjukan($id)
     {
@@ -172,4 +180,21 @@ class PurchaseRequestController extends Controller
 
         return redirect()->back()->with('success', 'Purchase request berhasil diajukan.');
     }
+
+    public function formEdit($id)
+{
+    // Mencari PurchaseRequest berdasarkan ID
+    $purchaseRequest = PurchaseRequest::findOrFail($id);
+    
+    // Mengambil semua data Item dan Akun Anggaran
+    $items = Item::all();
+    $akun_anggaran = AkunAnggaran::all();
+
+    // Mengambil detail PurchaseRequest berdasarkan purchase_request_id
+    $details = PurchaseRequestDetail::where('purchase_request_id', $id)->get();
+
+    // Mengirimkan data ke view
+    return view('admin.formEditPR', compact('items', 'akun_anggaran', 'purchaseRequest', 'details'));
+}
+
 }
