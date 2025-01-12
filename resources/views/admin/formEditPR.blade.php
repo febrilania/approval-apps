@@ -4,6 +4,11 @@
     <div class="card shadow-sm p-lg-4">
         <div class="container">
             <h1>Edit Purchase Request</h1>
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
             <form action="{{ route('purchaseRequest.update', $purchaseRequest->id) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
@@ -209,8 +214,14 @@
 
                             <!-- Aksi -->
                             <td>
-                                <button type="button" class="btn btn-danger btn-sm remove-row">Hapus</button>
+                                <a href="{{ route('purchaseRequest.deleteDetail', [$purchaseRequest->id, $detail->id]) }}"
+                                    class="btn btn-danger btn-sm remove-row">
+                                    Hapus
+                                </a>
+
                             </td>
+
+
                         </tr>
                         @endforeach
                     </tbody>
@@ -298,7 +309,7 @@
             const akunSelect = document.createElement('select');
             akunSelect.name = 'akun_anggaran_id[]';
             akunSelect.className = 'form-control';
-            akunSelect.required = true;
+            akunSelect.required = false;
 
             akunAnggaran.forEach(akun => {
                 const option = document.createElement('option');

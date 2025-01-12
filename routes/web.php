@@ -71,12 +71,12 @@ Route::middleware(['auth', 'permission:1'])->group(function () {
     Route::get('admin/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('purchaseRequest');
     Route::get('/purchase-request', [PurchaseRequestController::class, 'showPurchaseRequestForm'])->name('purchaseRequestForm');
     Route::post('/purchase-request/add-detail', [PurchaseRequestController::class, 'addPurchaseRequest'])->name('addPurchaseRequest');
-    Route::get('/admin/deletePurchaseRequest/{id}', [PurchaseRequestController::class, 'deletePurchaseRequest'])->name('deletePurchaseRequestAdmin');
+    Route::delete('/admin/deletePurchaseRequest/{id}', [PurchaseRequestController::class, 'deletePurchaseRequest'])->name('deletePurchaseRequestAdmin');
     Route::get('/admin/ajukanPP/{id}', [PurchaseRequestController::class, 'submitAjukan'])->name('ajukanPP');
     Route::get('/admin/tracking/{purchase_request_id}', [ApprovalController::class, 'tracking'])->name('trackingAdmin');
     Route::get('/admin/purchaseRequest/{id}', [PurchaseRequestController::class, 'formEdit'])->name('formEditPurchaseRequestAdmin');
-    // Route::put('/admin/updatePurchaseRequest/{id}', [PurchaseRequestController::class, 'update'])->name('updatePurchaseRequestAdmin');
     Route::put('/purchase-request/{id}', [PurchaseRequestController::class, 'update'])->name('purchaseRequest.update');
+    Route::get('/purchase-request/{purchaseRequest}/delete-detail/{detail}', [PurchaseRequestController::class, 'deleteDetail'])->name('purchaseRequest.deleteDetail');
 });
 
 

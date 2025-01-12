@@ -6,10 +6,8 @@ use App\Models\AkunAnggaran;
 use App\Models\Item;
 use App\Models\PurchaseRequest;
 use App\Models\PurchaseRequestDetail;
-use App\Models\Approval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -200,132 +198,93 @@ class PurchaseRequestController extends Controller
         // Mengirimkan data ke view
         return view('admin.formEditPR', compact('items', 'akun_anggaran', 'purchaseRequest', 'details'));
     }
-    // public function update(Request $request, $id)
-    // {
 
-    //     // Validasi data
-    //     $request->validate([
-    //         'pengajuan' => 'required|numeric|min:0',
-    //         'pembelian' => 'required|numeric|min:0',
-    //         'item_id.*' => 'required|exists:items,id',
-    //         'quantity.*' => 'required|numeric|min:1',
-    //         'harga_pengajuan.*' => 'required|numeric|min:0',
-    //         'harga_pembelian.*' => 'nullable|numeric|min:0',
-    //         'file_nota' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-    //         'detail_id.*' => 'nullable|exists:purchase_requests_detail,id,purchase_request_id,' . $id, // Memastikan detail_id hanya ada untuk purchase_request yang sama
 
-    //     ]);
-
-    //     DB::beginTransaction();
-    //     try {
-    //         // Cari Purchase Request
-    //         $purchaseRequest = PurchaseRequest::findOrFail($id);
-
-    //         // Update Purchase Request
-    //         $purchaseRequest->pengajuan = $request->pengajuan;
-    //         $purchaseRequest->pembelian = $request->pembelian;
-
-    //         // Simpan file jika ada
-    //         if ($request->hasFile('file_nota')) {
-    //             if ($purchaseRequest->file_nota) {
-    //                 Storage::delete($purchaseRequest->file_nota); // Hapus file lama
-    //             }
-    //             $path = $request->file('file_nota')->store('notas'); // Simpan file baru
-    //             $purchaseRequest->file_nota = $path;
-    //         }
-
-    //         $purchaseRequest->save();
-
-    //         // Handle penghapusan detail
-    //         $existingDetailIds = $request->detail_id ?? [];
-    //         $deletedDetails = PurchaseRequestDetail::where('purchase_request_id', $purchaseRequest->id)
-    //             ->whereNotIn('id', $existingDetailIds)
-    //             ->delete();
-
-    //         // Loop untuk menyimpan atau mengupdate detail
-    //         foreach ($request->item_id as $key => $itemId) {
-    //             $detailId = $request->detail_id[$key] ?? null;
-    //             PurchaseRequestDetail::updateOrCreate(
-    //                 ['id' => $detailId], // Update jika detail_id ada
-    //                 [
-    //                     'purchase_request_id' => $purchaseRequest->id,
-    //                     'item_id' => $itemId,
-    //                     'quantity' => $request->quantity[$key],
-    //                     'status_barang' => $request->status_barang[$key],
-    //                     'alasan_pembelian' => $request->alasan_pembelian[$key],
-    //                     'rencana_penempatan' => $request->rencana_penempatan[$key],
-    //                     'akun_anggaran_id' => $request->akun_anggaran_id[$key],
-    //                     'harga_pengajuan' => $request->harga_pengajuan[$key],
-    //                     'harga_pengajuan_total' => $request->harga_pengajuan_total[$key],
-    //                     'harga_pembelian' => $request->harga_pembelian[$key],
-    //                     'harga_total' => $request->harga_total[$key],
-    //                     'catatan' => $request->catatan[$key],
-    //                 ]
-    //             );
-    //         }
-
-    //         DB::commit(); // Commit perubahan
-    //         return redirect()->back()->with('success', 'Purchase Request berhasil diupdate.');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack(); // Rollback jika terjadi kesalahan
-    //         return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
-    //     }
-    // }
     public function update(Request $request, $id)
     {
-        DB::beginTransaction();
-        try {
-            // Cari Purchase Request
-            $purchaseRequest = PurchaseRequest::findOrFail($id);
+        $request->validate([
+            'pengajuan' => 'nullable|numeric|min:0',
+            'pembelian' => 'nullable|numeric|min:0',
+            'file_nota' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
+            'item_id.*' => 'required|exists:items,id',
+            'quantity.*' => 'required|numeric|min:1',
+            'status_barang.*' => 'required|string|in:pending,approved,rejected',
+            'alasan_pembelian.*' => 'nullable|string',
+            'rencana_penempatan.*' => 'nullable|string',
+            'akun_anggaran_id.*' => 'nullable|exists:akun_anggaran,id',
+            'harga_pengajuan.*' => 'nullable|numeric|min:0',
+            'harga_pembelian.*' => 'nullable|numeric|min:0',
+            'catatan.*' => 'nullable|string',
+        ]);
 
-            // Update Purchase Request
-            $purchaseRequest->pengajuan = $request->pengajuan;
-            $purchaseRequest->pembelian = $request->pembelian;
+        $purchaseRequest = PurchaseRequest::findOrFail($id);
 
-            // Simpan file jika ada
-            if ($request->hasFile('file_nota')) {
-                if ($purchaseRequest->file_nota) {
-                    Storage::delete($purchaseRequest->file_nota); // Hapus file lama
-                }
-                $path = $request->file('file_nota')->store('notas'); // Simpan file baru
-                $purchaseRequest->file_nota = $path;
+        // Update file nota jika ada
+        if ($request->hasFile('file_nota')) {
+            // Hapus file lama jika ada
+            if ($purchaseRequest->file_nota) {
+                Storage::delete($purchaseRequest->file_nota);
             }
-
-            $purchaseRequest->save();
-
-            // Handle penghapusan detail
-            $existingDetailIds = $request->detail_id ?? [];
-            PurchaseRequestDetail::where('purchase_request_id', $purchaseRequest->id)
-                ->whereNotIn('id', $existingDetailIds)
-                ->delete();
-
-            // Loop untuk menyimpan atau mengupdate detail
-            foreach ($request->item_id as $key => $itemId) {
-                $detailId = $request->detail_id[$key] ?? null;
-                PurchaseRequestDetail::updateOrCreate(
-                    ['id' => $detailId], // Update jika detail_id ada
-                    [
-                        'purchase_request_id' => $purchaseRequest->id,
-                        'item_id' => $itemId,
-                        'quantity' => $request->quantity[$key],
-                        'status_barang' => $request->status_barang[$key],
-                        'alasan_pembelian' => $request->alasan_pembelian[$key],
-                        'rencana_penempatan' => $request->rencana_penempatan[$key],
-                        'akun_anggaran_id' => $request->akun_anggaran_id[$key],
-                        'harga_pengajuan' => $request->harga_pengajuan[$key],
-                        'harga_pengajuan_total' => $request->harga_pengajuan_total[$key],
-                        'harga_pembelian' => $request->harga_pembelian[$key],
-                        'harga_total' => $request->harga_total[$key],
-                        'catatan' => $request->catatan[$key],
-                    ]
-                );
-            }
-
-            DB::commit(); // Commit perubahan
-            return redirect()->back()->with('success', 'Purchase Request berhasil diupdate.');
-        } catch (\Exception $e) {
-            DB::rollBack(); // Rollback jika terjadi kesalahan
-            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+            $filePath = $request->file('file_nota')->store('notas');
+            $purchaseRequest->file_nota = $filePath;
         }
+
+        // Update data utama Purchase Request
+        $purchaseRequest->pengajuan = $request->input('pengajuan');
+        $purchaseRequest->pembelian = $request->input('pembelian');
+        $purchaseRequest->save();
+
+        // Update detail Purchase Request
+        $detailIds = $request->input('detail_id', []);
+        $itemIds = $request->input('item_id', []);
+        $quantities = $request->input('quantity', []);
+        $statusBarangs = $request->input('status_barang', []);
+        $alasanPembelians = $request->input('alasan_pembelian', []);
+        $rencanaPenempatans = $request->input('rencana_penempatan', []);
+        $akunAnggaranIds = $request->input('akun_anggaran_id', []);
+        $hargaPengajuans = $request->input('harga_pengajuan', []);
+        $hargaPengajuanTotals = $request->input('harga_pengajuan_total', []);
+        $hargaPembelians = $request->input('harga_pembelian', []);
+        $hargaTotals = $request->input('harga_total', []);
+        $catatans = $request->input('catatan', []);
+
+        foreach ($itemIds as $index => $itemId) {
+            if (!empty($detailIds[$index])) {
+                // Jika detail_id ada, update data yang sudah ada
+                $detail = PurchaseRequestDetail::findOrFail($detailIds[$index]);
+            } else {
+                // Jika detail_id kosong, buat entri baru
+                $detail = new PurchaseRequestDetail();
+                $detail->purchase_request_id = $purchaseRequest->id;
+            }
+
+            $detail->item_id = $itemId;
+            $detail->quantity = $quantities[$index];
+            $detail->status_barang = $statusBarangs[$index];
+            $detail->alasan_pembelian = $alasanPembelians[$index];
+            $detail->rencana_penempatan = $rencanaPenempatans[$index];
+            $detail->akun_anggaran_id = $akunAnggaranIds[$index] ?? null;
+            $detail->harga_pengajuan = $hargaPengajuans[$index];
+            $detail->harga_pengajuan_total = $hargaPengajuanTotals[$index];
+            $detail->harga_pembelian = $hargaPembelians[$index];
+            $detail->harga_total = $hargaTotals[$index];
+            $detail->catatan = $catatans[$index];
+
+            $detail->save();
+        }
+
+        return redirect()->back()->with('success', 'Purchase Request berhasil diupdate.');
+    }
+    public function deleteDetail($purchaseRequestId, $detailId)
+    {
+        // Temukan purchase request dan detail yang ingin dihapus
+        $purchaseRequest = PurchaseRequest::findOrFail($purchaseRequestId);
+        $detail = $purchaseRequest->purchaseRequestDetails()->findOrFail($detailId);
+
+        // Hapus detail tersebut
+        $detail->delete();
+
+        return redirect()->route('formEditPurchaseRequestAdmin', $purchaseRequestId)
+            ->with('success', 'Detail Purchase Request berhasil dihapus.');
     }
 }
