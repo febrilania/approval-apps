@@ -40,12 +40,16 @@
                             <span>Dashboard</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('category')}}" class="nav-link"><i class="ri-layout-grid-fill"></i>
+                        <a href="{{route('category')}}" class="nav-link"><i class="ri-folder-3-line"></i>
                             <span>Kategori</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('itemAdmin')}}" class="nav-link"><i class="ri-grid-fill"></i>
+                        <a href="{{route('itemAdmin')}}" class="nav-link"><i class="ri-store-2-line"></i>
                             <span>Item</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('akun.index')}}" class="nav-link"><i class="ri-wallet-line"></i>
+                            <span>Akun Anggaran</span></a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('purchaseRequest')}}" class="nav-link"><i class="ri-draft-line"></i>

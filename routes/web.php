@@ -11,6 +11,7 @@ use App\Http\Controllers\PurchaseRequestController;
 use App\Http\Controllers\SarprasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WakilRektorController;
+use App\Http\Controllers\AkunController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -77,6 +78,12 @@ Route::middleware(['auth', 'permission:1'])->group(function () {
     Route::get('/admin/purchaseRequest/{id}', [PurchaseRequestController::class, 'formEdit'])->name('formEditPurchaseRequestAdmin');
     Route::put('/purchase-request/{id}', [PurchaseRequestController::class, 'update'])->name('purchaseRequest.update');
     Route::get('/purchase-request/{purchaseRequest}/delete-detail/{detail}', [PurchaseRequestController::class, 'deleteDetail'])->name('purchaseRequest.deleteDetail');
+    Route::get('/admin/akun', [AkunController::class, 'index'])->name('akun.index');
+    Route::post('/admin/akun', [AkunController::class, 'create'])->name('akun.create');
+    Route::get('/admin/akun/{id}/edit', [AkunController::class, 'edit'])->name('akun.edit');
+    Route::put('/admin/akun/{id}', [AkunController::class, 'update'])->name('akun.update');
+    Route::delete('/admin/akun/{id}/delete', [AkunController::class, 'delete'])->name('akun.delete');
+    
 });
 
 
