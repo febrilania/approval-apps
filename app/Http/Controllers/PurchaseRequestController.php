@@ -223,9 +223,11 @@ class PurchaseRequestController extends Controller
         if ($request->hasFile('file_nota')) {
             // Hapus file lama jika ada
             if ($purchaseRequest->file_nota) {
-                Storage::delete($purchaseRequest->file_nota);
+                Storage::disk('public')->delete($purchaseRequest->file_nota);
             }
-            $filePath = $request->file('file_nota')->store('notas');
+
+            // Simpan file ke disk publik
+            $filePath = $request->file('file_nota')->store('notas', 'public');
             $purchaseRequest->file_nota = $filePath;
         }
 
@@ -286,5 +288,13 @@ class PurchaseRequestController extends Controller
 
         return redirect()->route('formEditPurchaseRequestAdmin', $purchaseRequestId)
             ->with('success', 'Detail Purchase Request berhasil dihapus.');
+    }
+
+    public function showPR($id)
+    {
+        $purchase_request = PurchaseRequest::with(['purchaseRequestDetails.item', 'purchaseRequestDetails.akunAnggaran'])->findOrFail($id);
+        // dd($purchase_request);
+
+        return view('admin/showPR', compact('purchase_request'));
     }
 }

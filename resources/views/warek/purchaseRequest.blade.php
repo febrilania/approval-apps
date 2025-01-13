@@ -1,59 +1,63 @@
 @extends('layout.warek')
+
 <div class="main main-app p-3 p-lg-4">
     <div class="card shadow-sm p-3 p-lg-4">
+        <h4 class="main-title mb-3">Daftar Purchase Request</h4>
+
         @if(session('success'))
-        <div class="alert alert-success my-2">
+        <div class="alert alert-success alert-dismissible fade show my-2" role="alert">
             {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Requestor</th>
-                    <th scope="col">Lock</th>
-                    <th scope="col">Status Berkas</th>
-                    <th scope="col">
-                        <div class="text-center">Aksi</div>
-                    </th>
-                </tr>
-            </thead>
-            <tr>
-                <td scope="col"></td>
-                <td scope="col"></td>
-                <td scope="col"></td>
-                <td scope="col"></td>
-                <td scope="col">
-                    <div class="text-center d-flex justify-content-center gap-2">
-                        <div>Detail</div>
-                        <div>Approve</div>
-                        <div>Reject</div>
-                    </div>
-                </td>
-            </tr>
-            <tbody>
-                @forelse ($purchase_requests as $index => $purchase_request)
-                @if ($purchase_request->status_berkas !== 'draft')
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $purchase_request->user->name }}</td>
-                    <td>{{ $purchase_request->created_at->format('dmyHis') }}</td>
-                    <td>{{ $purchase_request->status_berkas }}</td>
-                    <td class="text-center">
-                        <a href="" class="btn btn-primary"><i class="ri-edit-box-line"></i></a>
-                        <a href="{{route('approveWarek',['id' => $purchase_request->id])}}" class="btn btn-success"><i
-                                class="ri-file-list-3-line"></i></a>
-                        <a href="{{route('rejectWarek',['id'=> $purchase_request->id])}}" class="btn btn-danger"><i
-                                class="ri-delete-bin-line"></i></a>
-                    </td>
-                </tr>
-                @endif
-                @empty
-                <div class="alert alert-danger">
-                    tidak ada Pengajuan
-                </div>
-                @endforelse
-            </tbody>
-        </table>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col" class="text-center">No</th>
+                        <th scope="col">Requestor</th>
+                        <th scope="col">Lock</th>
+                        <th scope="col">Status Berkas</th>
+                        <th scope="col" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($purchase_requests as $index => $purchase_request)
+                    @if ($purchase_request->status_berkas !== 'draft')
+                    <tr>
+                        <td class="text-center">{{ $index + 1 }}</td>
+                        <td>{{ $purchase_request->user->name }}</td>
+                        <td>{{ $purchase_request->created_at->format('dmyHis') }}</td>
+                        <td>{{ ucfirst($purchase_request->status_berkas) }}</td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="#" class="btn btn-primary btn-sm">
+                                    <i class="ri-edit-box-line"></i> Detail
+                                </a>
+                                <a href="{{ route('approveWarek', ['id' => $purchase_request->id]) }}"
+                                    class="btn btn-success btn-sm">
+                                    <i class="ri-file-list-3-line"></i> Approve
+                                </a>
+                                <a href="{{ route('rejectWarek', ['id' => $purchase_request->id]) }}"
+                                    class="btn btn-danger btn-sm">
+                                    <i class="ri-delete-bin-line"></i> Reject
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    @endif
+                    @empty
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            <div class="alert alert-danger mb-0">
+                                Tidak ada pengajuan yang tersedia.
+                            </div>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

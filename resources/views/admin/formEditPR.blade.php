@@ -227,6 +227,9 @@
                     </tbody>
                 </table>
 
+                <a href="javascript:history.back()" class="btn btn-secondary">
+                    <i class="ri-arrow-left-line"></i> Kembali
+                </a>
                 <!-- Tombol untuk menambahkan detail baru -->
                 <button type="button" class="btn btn-success" id="add-detail">Tambah Detail</button>
 

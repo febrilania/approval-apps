@@ -31,7 +31,8 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="category_name" class="form-label">Nama Kategori</label>
-                                <input type="text" class="form-control" id="category_name" name="category_name" value="{{old('category_name')}}">
+                                <input type="text" class="form-control" id="category_name" name="category_name"
+                                    value="{{old('category_name')}}">
                             </div>
                         </div>
                         @error('category_name')
@@ -50,8 +51,8 @@
 
         <!-- Category Table -->
         <div class="table-responsive">
-            <table class="table table-striped table-bordered">
-                <thead>
+            <table class="table table-striped table-hover table-bordered align-middle">
+                <thead class="table-dark">
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Kategori</th>
@@ -65,35 +66,43 @@
                         <td>{{ $category->category_name }}</td>
                         <td class="text-center">
                             <!-- Edit Button -->
-                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $category->id }}">
+                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#editModal{{ $category->id }}">
                                 <i class="ri-edit-box-line"></i> Edit
                             </button>
                             <!-- Delete Button -->
-                            <a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete(event, '{{ route('deleteCategory', $category->id) }}')">
+                            <a href="#" class="btn btn-danger btn-sm"
+                                onclick="confirmDelete(event, '{{ route('deleteCategory', $category->id) }}')">
                                 <i class="ri-delete-bin-line"></i> Hapus
                             </a>
                         </td>
                     </tr>
 
                     <!-- Edit Modal -->
-                    <div class="modal fade" id="editModal{{ $category->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $category->id }}" aria-hidden="true">
+                    <div class="modal fade" id="editModal{{ $category->id }}" tabindex="-1"
+                        aria-labelledby="editModalLabel{{ $category->id }}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editModalLabel{{ $category->id }}">Edit Kategori</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <form action="{{ route('editCategory', $category->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="modal-body">
                                         <div class="mb-3">
-                                            <label for="category_name{{ $category->id }}" class="form-label">Nama Kategori</label>
-                                            <input type="text" class="form-control" id="category_name{{ $category->id }}" name="category_name" value="{{ $category->category_name }}" required>
+                                            <label for="category_name{{ $category->id }}" class="form-label">Nama
+                                                Kategori</label>
+                                            <input type="text" class="form-control"
+                                                id="category_name{{ $category->id }}" name="category_name"
+                                                value="{{ $category->category_name }}" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Batal</button>
                                         <button type="submit" class="btn btn-primary">Perbarui</button>
                                     </div>
                                 </form>

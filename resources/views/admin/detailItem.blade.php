@@ -6,17 +6,19 @@
             <div class="col-md-6 mb-4">
                 <!-- Item Image -->
                 <div class="image-container d-flex justify-content-center">
-                    <img src="{{ asset('storage/items/'.$item->image) }}" class="img-fluid rounded-3 shadow-lg" alt="gambar" />
+                    <img src="{{ asset('storage/items/'.$item->image) }}" class="img-fluid rounded-3 shadow-lg"
+                        alt="gambar" />
                 </div>
             </div>
             <div class="col-md-6">
                 <!-- Item Details -->
                 <h3 class="fw-bold mb-2">{{ $item->item_name }}</h3>
-                <p class="text-muted fs-5 mb-4">Price: <span class="text-success">{{ number_format($item->unit_price, 0, ',', '.') }} IDR</span></p>
-                
+                <p class="text-muted fs-5 mb-4">Price: <span class="text-success">{{ number_format($item->unit_price, 0,
+                        ',', '.') }} IDR</span></p>
+
                 <!-- Description or Additional Information -->
                 <div class="bg-light p-3 rounded-3 shadow-sm mb-4">
-                    <p class="mb-0">Here you can add more details about the item, such as description, specifications, and additional features. This area can be used to give more context to the item.</p>
+                    <p class="mb-0">{{$item->description}}</p>
                 </div>
 
                 <!-- Action Buttons -->
@@ -36,7 +38,7 @@
         height: auto;
         object-fit: cover;
     }
-    
+
     .card {
         background-color: #fff;
         border-radius: 16px;

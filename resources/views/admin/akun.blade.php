@@ -14,7 +14,8 @@
         </button>
 
         <!-- Modal -->
-        <div class="modal" id="modalTambahAkunAnggaran" tabindex="-1" aria-labelledby="modalTambahAkunAnggaranLabel" aria-hidden="true">
+        <div class="modal" id="modalTambahAkunAnggaran" tabindex="-1" aria-labelledby="modalTambahAkunAnggaranLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -42,8 +43,8 @@
         </div>
 
         <div class="container mt-4">
-            <table class="table table-bordered table-striped">
-                <thead>
+            <table class="table table-striped table-hover table-bordered align-middle">
+                <thead class="table-dark">
                     <tr>
                         <th>No</th>
                         <th>Nama Akun</th>
@@ -56,18 +57,22 @@
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $akun->nama_akun }}</td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditAkunAnggaran{{ $akun->id }}">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#modalEditAkunAnggaran{{ $akun->id }}">
                                 Edit
                             </button>
                         </td>
 
                         <!-- Modal Edit Akun Anggaran -->
-                        <div class="modal fade" id="modalEditAkunAnggaran{{ $akun->id }}" tabindex="-1" aria-labelledby="modalEditAkunAnggaranLabel{{ $akun->id }}" aria-hidden="true">
+                        <div class="modal fade" id="modalEditAkunAnggaran{{ $akun->id }}" tabindex="-1"
+                            aria-labelledby="modalEditAkunAnggaranLabel{{ $akun->id }}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalEditAkunAnggaranLabel{{ $akun->id }}">Edit Akun Anggaran</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h5 class="modal-title" id="modalEditAkunAnggaranLabel{{ $akun->id }}">Edit Akun
+                                            Anggaran</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <form action="{{ route('akun.update', $akun->id) }}" method="POST">
@@ -75,10 +80,12 @@
                                             @method('PUT')
                                             <div class="mb-3">
                                                 <label for="akun" class="form-label">Nama Akun</label>
-                                                <input type="text" class="form-control" id="akun" name="nama_akun" value="{{ $akun->nama_akun }}" required>
+                                                <input type="text" class="form-control" id="akun" name="nama_akun"
+                                                    value="{{ $akun->nama_akun }}" required>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Tutup</button>
                                                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                             </div>
                                         </form>
@@ -88,10 +95,12 @@
                         </div>
 
                         <td class="text-center">
-                            <form action="{{ route('akun.delete', $akun->id) }}" method="post" id="deleteForm{{ $akun->id }}">
+                            <form action="{{ route('akun.delete', $akun->id) }}" method="post"
+                                id="deleteForm{{ $akun->id }}">
                                 @csrf
                                 @method('delete')
-                                <button type="button" class="btn btn-danger" onclick="confirmDelete(event, {{ $akun->id }})">Hapus</button>
+                                <button type="button" class="btn btn-danger"
+                                    onclick="confirmDelete(event, {{ $akun->id }})">Hapus</button>
                             </form>
                         </td>
                     </tr>

@@ -26,8 +26,8 @@
         <!-- User Table -->
         <div>
             <div class="table-responsive">
-                <table class="table table-striped table-bordered">
-                    <thead>
+                <table class="table table-striped table-hover table-bordered align-middle">
+                    <thead class="table-dark">
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Nama</th>
@@ -46,16 +46,16 @@
                                 <a href="" class="btn btn-success btn-sm">
                                     <i class="ri-file-list-3-line"></i> Detail
                                 </a>
-                                
+
                                 <!-- Edit Button -->
                                 <a href="{{ route('editUser', $user->id) }}" class="btn btn-primary btn-sm">
                                     <i class="ri-edit-box-line"></i> Edit
                                 </a>
-                                
+
                                 <!-- Delete Button with Confirmation -->
                                 <a href="#" class="btn btn-danger btn-sm"
-                                   onclick="confirmDelete(event, '{{ route('destroyUser', $user->id) }}')">
-                                   <i class="ri-delete-bin-line"></i> Hapus
+                                    onclick="confirmDelete(event, '{{ route('destroyUser', $user->id) }}')">
+                                    <i class="ri-delete-bin-line"></i> Hapus
                                 </a>
                             </td>
                         </tr>

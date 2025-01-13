@@ -83,7 +83,7 @@ Route::middleware(['auth', 'permission:1'])->group(function () {
     Route::get('/admin/akun/{id}/edit', [AkunController::class, 'edit'])->name('akun.edit');
     Route::put('/admin/akun/{id}', [AkunController::class, 'update'])->name('akun.update');
     Route::delete('/admin/akun/{id}/delete', [AkunController::class, 'delete'])->name('akun.delete');
-    
+    Route::get('/admin/showPR/{id}', [PurchaseRequestController::class, 'showPR'])->name('showPR.admin');
 });
 
 
