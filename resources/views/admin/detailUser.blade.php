@@ -9,28 +9,29 @@
     <div class="card shadow-lg rounded-4 border-0">
         <!-- Profile Picture at the Top, Centered -->
         <div class="profile-img-container d-flex justify-content-center mb-4">
-            <img src="{{ asset('storage/items/'.Auth::user()->profile_picture) }}" class="img-fluid profile-img"
+            <img src="{{ asset('storage/items/'.$users->profile_picture) }}" class="img-fluid profile-img"
                 alt="Profile Picture">
         </div>
 
         <div class="card card-body py-4 px-5">
-            <h3 class="fw-bold  mb-4 text-center" style="font-size: 2.2rem;">{{ Auth::user()->name }}</h3>
+            <h3 class="fw-bold  mb-4 text-center" style="font-size: 2.2rem;">{{ $users->name }}</h3>
             <div class="card mb-3">
                 <div class="card-body">
                     <p class="text-muted mb-1" style="font-size: 1.1rem;">Username</p>
-                    <h6 class="text-dark" style="font-size: 1.3rem;">{{ Auth::user()->username }}</h6>
+                    <h6 class="text-dark" style="font-size: 1.3rem;">{{ $users->username }}</h6>
                 </div>
             </div>
 
             <div class="card mb-4">
                 <div class="card-body">
                     <p class="text-muted mb-1" style="font-size: 1.1rem;">Role</p>
-                    <h6 class="text-dark" style="font-size: 1.3rem;">{{ Auth::user()->role->role_name }}</h6>
+                    <h6 class="text-dark" style="font-size: 1.3rem;">{{ $users->role->role_name }}</h6>
                 </div>
             </div>
 
             <div class="text-center mt-4">
-                <a href="{{ route('editProfileAdmin') }}" class="btn btn-primary btn-lg rounded-4 px-5 py-3 shadow-sm">
+                <a href="{{ route('editUser', $users->id) }}"
+                    class="btn btn-primary btn-lg rounded-4 px-5 py-3 shadow-sm">
                     <i class="ri-edit-2-line"></i> Edit Profile
                 </a>
             </div>

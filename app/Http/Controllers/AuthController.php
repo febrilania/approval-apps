@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-
+use Symfony\Component\HttpKernel\Debug\VirtualRequestStack;
 
 class AuthController extends Controller
 {
@@ -131,5 +132,11 @@ class AuthController extends Controller
         } else if ($user->role_id === 6) {
             return view('warek/profile', compact('user'));
         }
+    }
+
+    public function detailUser($id)
+    {
+        $users = User::with('role')->findOrFail($id);
+        return View('admin/detailUser', compact('users'));
     }
 }

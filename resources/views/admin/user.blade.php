@@ -2,12 +2,8 @@
 
 <div class="main main-app p-3 p-lg-4">
     <div class="card shadow-sm p-lg-4">
-        <div class="mb-3">
+        <div class="">
             <!-- Breadcrumb Navigation -->
-            <ol class="breadcrumb fs-sm mb-1">
-                <li class="breadcrumb-item"><a href="#">Administrator</a></li>
-                <li class="breadcrumb-item active" aria-current="page">User</li>
-            </ol>
             <h4 class="main-title mb-0">User</h4>
         </div>
 
@@ -43,7 +39,7 @@
                             <td>{{ $user->role->role_name }}</td>
                             <td class="text-center">
                                 <!-- Detail Button -->
-                                <a href="" class="btn btn-success btn-sm">
+                                <a href="{{ route('detailUser.admin', $user->id) }}" class="btn btn-success btn-sm">
                                     <i class="ri-file-list-3-line"></i> Detail
                                 </a>
 

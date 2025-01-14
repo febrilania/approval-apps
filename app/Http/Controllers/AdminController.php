@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\PurchaseRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class AdminController extends Controller
     {
         $usersCount = User::count();
         $requestCount = PurchaseRequest::count();
-        return view('admin/dashboard', compact('usersCount', 'requestCount'));
+        $itemCount = Item::count();
+        return view('admin/dashboard', compact('usersCount', 'requestCount', 'itemCount'));
     }
 
     public function user()

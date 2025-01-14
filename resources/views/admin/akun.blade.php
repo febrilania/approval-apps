@@ -1,5 +1,9 @@
+<head>
+    <!-- Tambahkan favicon -->
+    <link rel="shortcut icon" href="{{ asset('Dashbyte/HTML/dist/assets/img/favicon.png') }}">
+    <!-- Jika layout.admin punya bagian head -->
+</head>
 @extends('layout.admin')
-
 <div class="main main-app p-3 p-lg-4">
     <div class="card shadow-sm p-lg-4">
         @if(session('success'))
@@ -7,11 +11,14 @@
             {{ session('success') }}
         </div>
         @endif
-        <p class="fw-bold fs-5">Akun</p>
+        <p class="fw-bold fs-5">Akun Anggaran</p>
         <!-- Tombol untuk memunculkan modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahAkunAnggaran">
-            Tambah Akun Anggaran
-        </button>
+        <div class="">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#modalTambahAkunAnggaran">
+                Tambah Akun Anggaran
+            </button>
+        </div>
 
         <!-- Modal -->
         <div class="modal" id="modalTambahAkunAnggaran" tabindex="-1" aria-labelledby="modalTambahAkunAnggaranLabel"
@@ -42,7 +49,7 @@
             </div>
         </div>
 
-        <div class="container mt-4">
+        <div class=" mt-4">
             <table class="table table-striped table-hover table-bordered align-middle">
                 <thead class="table-dark">
                     <tr>
@@ -112,7 +119,6 @@
                 </tbody>
             </table>
         </div>
-
     </div>
 </div>
 

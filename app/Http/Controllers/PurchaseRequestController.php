@@ -6,6 +6,7 @@ use App\Models\AkunAnggaran;
 use App\Models\Item;
 use App\Models\PurchaseRequest;
 use App\Models\PurchaseRequestDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -187,6 +188,8 @@ class PurchaseRequestController extends Controller
     {
         // Mencari PurchaseRequest berdasarkan ID
         $purchaseRequest = PurchaseRequest::findOrFail($id);
+        $user_id = auth()->id();
+        // dd($user_id);
 
         // Mengambil semua data Item dan Akun Anggaran
         $items = Item::all();
@@ -195,8 +198,12 @@ class PurchaseRequestController extends Controller
         // Mengambil detail PurchaseRequest berdasarkan purchase_request_id
         $details = PurchaseRequestDetail::where('purchase_request_id', $id)->get();
 
+        if ($purchaseRequest->status_berkas == "draft" || $user_id == 5) {
+            return view('admin.formEditPR', compact('items', 'akun_anggaran', 'purchaseRequest', 'details'));
+        } else {
+            return redirect()->back()->with('error', 'status berkas bukan draft, tidak bisa diubah kecuali pengadaan barang');
+        }
         // Mengirimkan data ke view
-        return view('admin.formEditPR', compact('items', 'akun_anggaran', 'purchaseRequest', 'details'));
     }
 
 

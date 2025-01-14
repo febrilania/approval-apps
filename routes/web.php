@@ -84,6 +84,7 @@ Route::middleware(['auth', 'permission:1'])->group(function () {
     Route::put('/admin/akun/{id}', [AkunController::class, 'update'])->name('akun.update');
     Route::delete('/admin/akun/{id}/delete', [AkunController::class, 'delete'])->name('akun.delete');
     Route::get('/admin/showPR/{id}', [PurchaseRequestController::class, 'showPR'])->name('showPR.admin');
+    Route::get('/admin/detailUser/{id}', [AuthController::class, 'detailUser'])->name('detailUser.admin');
 });
 
 

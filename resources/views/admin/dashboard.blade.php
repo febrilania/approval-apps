@@ -19,7 +19,7 @@
                         <h5 class="mb-0">Requests</h5>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><i class="ri-file-list-line"></i> Request</h5>
+                        <h5 class="card-title"><i class="ri-file-list-line"></i> Requests</h5>
                         <p class="card-text">Total Requests: <strong>{{ $requestCount }}</strong></p>
                         <a href="{{ route('purchaseRequest') }}" class="btn btn-outline-primary w-100">View Requests</a>
                     </div>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title"><i class="ri-store-line"></i> Items</h5>
-                        <p class="card-text">Manage and view your items here.</p>
+                        <p class="card-text">Total Item: <strong>{{ $itemCount }}</strong></p>
                         <a href="{{route('itemAdmin')}}" class="btn btn-outline-success w-100">View Items</a>
                     </div>
                 </div>
@@ -132,4 +132,4 @@
 
 <!-- Bootstrap 5 JS & Popper (for modal and interactions) -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script> --}}
