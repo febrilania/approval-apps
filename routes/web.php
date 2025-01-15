@@ -95,6 +95,9 @@ Route::middleware(['auth', 'permission:2'])->group(function () {
     Route::get('/user/editProfile', [AuthController::class, 'editProfile'])->name('editProfileUser');
     Route::get('/user/profile', [AuthController::class, 'profile'])->name('profileUser');
     Route::get('/user/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRUSer');
+    Route::get('/user/akunAnggaran', [AkunController::class, 'index'])->name('akun.user');
+    Route::get('/user/purchaseRequest/form', [PurchaseRequestController::class, 'showPurchaseRequestForm'])->name('formPR.user');
+    Route::post('/user/addDPR', [PurchaseRequestController::class, 'addPurchaseRequest'])->name('addPurchaseRequest.user');
 });
 
 

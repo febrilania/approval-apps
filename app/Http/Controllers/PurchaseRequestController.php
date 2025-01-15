@@ -58,6 +58,8 @@ class PurchaseRequestController extends Controller
         // Hapus ID purchase request dari session jika pertama kali masuk form
         session()->forget('purchase_request_id');
 
+        $roleId = Auth::user()->role_id;
+
         $items = Item::all();
         $akun_anggaran = AkunAnggaran::all();
 
@@ -65,12 +67,21 @@ class PurchaseRequestController extends Controller
         $purchaseRequest = null;
         $details = [];
 
-        return view('admin.detailPurchaseRequestForm', [
-            'items' => $items,
-            'akun_anggaran' => $akun_anggaran,
-            'purchaseRequest' => $purchaseRequest,
-            'details' => $details
-        ]);
+        if ($roleId == 1) {
+            return view('admin.detailPurchaseRequestForm', [
+                'items' => $items,
+                'akun_anggaran' => $akun_anggaran,
+                'purchaseRequest' => $purchaseRequest,
+                'details' => $details
+            ]);
+        } else if ($roleId == 2) {
+            return view('user.detailPurchaseRequestForm', [
+                'items' => $items,
+                'akun_anggaran' => $akun_anggaran,
+                'purchaseRequest' => $purchaseRequest,
+                'details' => $details
+            ]);
+        }
     }
 
     public function addPurchaseRequest(Request $request)

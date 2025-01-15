@@ -40,7 +40,11 @@
                             <span>Dashboard</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('itemUser')}}" class="nav-link"><i class="ri-grid-fill"></i>
+                        <a href="{{route('akun.user')}}" class="nav-link"><i class="ri-folder-3-line"></i>
+                            <span>Akun Anggaran</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('itemUser')}}" class="nav-link"><i class="ri-store-2-fill"></i>
                             <span>Item</span></a>
                     </li>
                     <li class="nav-item">
