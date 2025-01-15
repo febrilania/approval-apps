@@ -95,10 +95,16 @@ class ApprovalController extends Controller
     public function tracking($purchase_request_id)
     {
         $purchaseRequest = PurchaseRequest::findOrFail($purchase_request_id);
+        $roleId = Auth::user()->role_id;
         $approvals = Approval::with('user')
             ->where('purchase_request_id', $purchase_request_id)
             ->orderBy('created_at', 'asc')
             ->get();
-        return view('admin/tracking', compact('approvals', 'purchaseRequest'));
+
+        if ($roleId == 1) {
+            return view('admin/tracking', compact('approvals', 'purchaseRequest'));
+        } else if ($roleId == 2) {
+            return view('user/tracking', compact('approvals', 'purchaseRequest'));
+        }
     }
 }

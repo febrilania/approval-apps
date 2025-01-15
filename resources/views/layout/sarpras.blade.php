@@ -12,9 +12,9 @@
     <meta name="author" content="Themepixels">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('Dashbyte/HTML/dist/assets/img/favicon.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('Dashbyte/HTML/dist/assets/img/U_P.png')}}">
 
-    <title>Sarpras - Premium Dashboard Template</title>
+    <title>SIPEBA - Universitas Peradaban</title>
 
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="{{asset('Dashbyte/HTML/dist/lib/remixicon/fonts/remixicon.css')}}">

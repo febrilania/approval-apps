@@ -29,6 +29,7 @@ class CategoryController extends Controller
 
     public function addCategory(Request $request)
     {
+        $roleId = Auth::user()->role_id;
         $validated = Validator::make($request->all(), [
             'category_name' => 'required'
         ]);
@@ -38,19 +39,44 @@ class CategoryController extends Controller
         $data['category_name'] = $request->category_name;
 
         Category::create($data);
-
-        return redirect('admin/category')->with(['success' => 'Berhasil menambahkan Kategori']);
+        if($roleId === 1) {
+            return redirect('admin/category')->with(['success' => 'Berhasil menambahkan Kategori']);
+        } else if($roleId === 2) {
+            return redirect('user/category')->with(['success' => 'Berhasil menambahkan Kategori']);
+        } else if($roleId === 3) {
+            return redirect('sarpras/category')->with(['success' => 'Berhasil menambahkan Kategori']);
+        } else if($roleId === 4) {
+            return redirect('perencanaan/category')->with(['success' => 'Berhasil menambahkan Kategori']);
+        } else if($roleId === 5) {
+            return redirect('pengadaan/category')->with(['success' => 'Berhasil menambahkan Kategori']);
+        } else if($roleId === 6) {
+            return redirect('warek/category')->with(['success' => 'Berhasil menambahkan Kategori']);
+        }
     }
 
     public function deleteCategory($id)
     {
+        $roleId = Auth::user()->role_id;
         $category = Category::findOrFail($id);
         $category->delete();
-        return redirect('admin/category')->with(['danger' => 'kategori berhasil dihapus']);
+        if($roleId === 1) {
+            return redirect('admin/category')->with(['danger' => 'kategori berhasil dihapus']);
+        } else if($roleId === 2) {
+            return redirect('user/category')->with(['danger' => 'kategori berhasil dihapus']);
+        } else if($roleId === 3) {
+            return redirect('sarpras/category')->with(['danger' => 'kategori berhasil dihapus']);
+        } else if($roleId === 4) {
+            return redirect('perencanaan/category')->with(['danger' => 'kategori berhasil dihapus']);
+        } else if($roleId === 5) {
+            return redirect('pengadaan/category')->with(['danger' => 'kategori berhasil dihapus']);
+        } else if($roleId === 6) {
+            return redirect('warek/category')->with(['danger' => 'kategori berhasil dihapus']);
+        }
     }
 
     public function editCategory(Request $request, $id)
     {
+        $roleId = Auth::user()->role_id;
         $validatedData = $request->validate([
             'category_name' => 'required'
         ]);
@@ -58,6 +84,19 @@ class CategoryController extends Controller
         $category->category_name = $validatedData['category_name'];
 
         $category->save();
-        return redirect('admin/category')->with(['success' => 'Data berhasil diperbarui']);
+
+        if($roleId === 1) {
+            return redirect('admin/category')->with(['success' => 'Data berhasil diperbarui']);
+        } else if($roleId === 2) {
+            return redirect('user/category')->with(['success' => 'Data berhasil diperbarui']);
+        } else if($roleId === 3) {
+            return redirect('sarpras/category')->with(['success' => 'Data berhasil diperbarui']);
+        } else if($roleId === 4) {
+            return redirect('perencanaan/category')->with(['success' => 'Data berhasil diperbarui']);
+        } else if($roleId === 5) {
+            return redirect('pengadaan/category')->with(['success' => 'Data berhasil diperbarui']);
+        } else if($roleId === 6) {
+            return redirect('warek/category')->with(['success' => 'Data berhasil diperbarui']);
+        }
     }
 }

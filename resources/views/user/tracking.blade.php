@@ -1,9 +1,9 @@
 <head>
     <!-- Tambahkan favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('Dashbyte/HTML/dist/assets/img/U_P.png')}}">
+    <link rel="shortcut icon" href="{{ asset('Dashbyte/HTML/dist/assets/img/favicon.png') }}">
     <!-- Jika layout.admin punya bagian head -->
 </head>
-@extends('layout.admin')
+@extends('layout.user')
 <div class="main main-app p-3 p-lg-4">
     <div class="card shadow-sm p-lg-4">
         <p class="fs-5 fw-bold">Tracking Persetujuan Barang</p>
@@ -62,9 +62,6 @@
                 </span>
             </p>
         </div>
-        <a href="javascript:history.back()" class="btn btn-secondary">
-            <i class="ri-arrow-left-line"></i> Kembali
-        </a>
     </div>
 </div>
 

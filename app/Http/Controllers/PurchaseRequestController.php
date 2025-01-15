@@ -16,42 +16,46 @@ use Illuminate\Support\Facades\Storage;
 class PurchaseRequestController extends Controller
 {
     public function index()
-    {
-        $userId = Auth::id(); // ID user yang sedang login
-        $roleId = Auth::user()->role_id; // ID role user yang sedang login
+{
+    $userId = Auth::id(); // ID user yang sedang login
+    $roleId = Auth::user()->role_id; // ID role user yang sedang login
 
-        // Pembuat request dan admin bisa melihat semua request mereka berdasarkan requestor_id
-        if ($roleId === 1 || $roleId === 2) {
-            // Gunakan relasi untuk mendapatkan purchase request berdasarkan requestor_id
-            $purchase_requests = PurchaseRequest::whereHas('user', function ($query) use ($userId) {
-                $query->where('id', $userId); // Memastikan hanya request yang dibuat oleh user yang terlihat
-            })->with('user', 'approvals')->get();
-        } else {
-            // Approver hanya bisa melihat purchase request yang menjadi giliran mereka
-            $purchase_requests = PurchaseRequest::whereHas('approvals', function ($query) use ($userId) {
-                $query->where('approver_id', $userId)
-                    ->where('is_current_stage', true);
-            })->with('user', 'approvals')->get();
-        }
-
-        // Ambil informasi requestor (jika diperlukan untuk view)
-        $requestor_id = PurchaseRequest::with('user')->get();
-
-        // Arahkan ke view sesuai role user
-        if ($roleId === 1) { // Admin
-            return view('admin/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-        } elseif ($roleId === 2) { // Pembuat request
-            return view('user/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-        } elseif ($roleId === 3) { // Sarpras
-            return view('sarpras/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-        } elseif ($roleId === 4) { // Perencanaan
-            return view('perencanaan/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-        } elseif ($roleId === 5) { // Pengadaan
-            return view('pengadaan/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-        } elseif ($roleId === 6) { // Warek
-            return view('warek/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-        }
+    // Administrator bisa melihat semua request
+    if ($roleId === 1) {
+        // Ambil semua purchase request tanpa filter berdasarkan user atau approver
+        $purchase_requests = PurchaseRequest::with('user', 'approvals')->get();
+    } elseif ($roleId === 2) { // Pembuat request
+        // Pembuat request hanya bisa melihat request mereka sendiri berdasarkan requestor_id
+        $purchase_requests = PurchaseRequest::whereHas('user', function ($query) use ($userId) {
+            $query->where('id', $userId); // Memastikan hanya request yang dibuat oleh user yang terlihat
+        })->with('user', 'approvals')->get();
+    } else { // Role selain Administrator dan Pembuat request (misalnya approver)
+        // Approver hanya bisa melihat purchase request yang menjadi giliran mereka
+        $purchase_requests = PurchaseRequest::whereHas('approvals', function ($query) use ($userId) {
+            $query->where('approver_id', $userId)
+                ->where('is_current_stage', true);
+        })->with('user', 'approvals')->get();
     }
+
+    // Ambil informasi requestor (jika diperlukan untuk view)
+    $requestor_id = PurchaseRequest::with('user')->get();
+
+    // Arahkan ke view sesuai role user
+    if ($roleId === 1) { // Admin
+        return view('admin/purchaseRequest', compact('purchase_requests', 'requestor_id'));
+    } elseif ($roleId === 2) { // Pembuat request
+        return view('user/purchaseRequest', compact('purchase_requests', 'requestor_id'));
+    } elseif ($roleId === 3) { // Sarpras
+        return view('sarpras/purchaseRequest', compact('purchase_requests', 'requestor_id'));
+    } elseif ($roleId === 4) { // Perencanaan
+        return view('perencanaan/purchaseRequest', compact('purchase_requests', 'requestor_id'));
+    } elseif ($roleId === 5) { // Pengadaan
+        return view('pengadaan/purchaseRequest', compact('purchase_requests', 'requestor_id'));
+    } elseif ($roleId === 6) { // Warek
+        return view('warek/purchaseRequest', compact('purchase_requests', 'requestor_id'));
+    }
+}
+
 
     public function showPurchaseRequestForm()
     {
@@ -59,6 +63,7 @@ class PurchaseRequestController extends Controller
         session()->forget('purchase_request_id');
 
         $roleId = Auth::user()->role_id;
+        
 
         $items = Item::all();
         $akun_anggaran = AkunAnggaran::all();
@@ -200,6 +205,7 @@ class PurchaseRequestController extends Controller
         // Mencari PurchaseRequest berdasarkan ID
         $purchaseRequest = PurchaseRequest::findOrFail($id);
         $user_id = auth()->id();
+        $roleId = Auth::user()->role_id;
         // dd($user_id);
 
         // Mengambil semua data Item dan Akun Anggaran
@@ -209,11 +215,14 @@ class PurchaseRequestController extends Controller
         // Mengambil detail PurchaseRequest berdasarkan purchase_request_id
         $details = PurchaseRequestDetail::where('purchase_request_id', $id)->get();
 
-        if ($purchaseRequest->status_berkas == "draft" || $user_id == 5) {
+        if ($purchaseRequest->status_berkas == "draft" && ($user_id == 5 || $roleId == 1)) {
             return view('admin.formEditPR', compact('items', 'akun_anggaran', 'purchaseRequest', 'details'));
+        } else if ($purchaseRequest->status_berkas == "draft" && ($user_id == 5 || $roleId == 2)) {
+            return view('user.formEditPR', compact('items', 'akun_anggaran', 'purchaseRequest', 'details'));
         } else {
-            return redirect()->back()->with('error', 'status berkas bukan draft, tidak bisa diubah kecuali pengadaan barang');
+            return redirect()->back()->with('error', 'Status berkas bukan draft, tidak bisa diubah kecuali pengadaan barang');
         }
+        
         // Mengirimkan data ke view
     }
 
@@ -304,7 +313,7 @@ class PurchaseRequestController extends Controller
         // Hapus detail tersebut
         $detail->delete();
 
-        return redirect()->route('formEditPurchaseRequestAdmin', $purchaseRequestId)
+        return redirect()->route('formEditPurchaseRequest.user', $purchaseRequestId)
             ->with('success', 'Detail Purchase Request berhasil dihapus.');
     }
 
@@ -312,7 +321,20 @@ class PurchaseRequestController extends Controller
     {
         $purchase_request = PurchaseRequest::with(['purchaseRequestDetails.item', 'purchaseRequestDetails.akunAnggaran'])->findOrFail($id);
         // dd($purchase_request);
+        $roleId = Auth::user()->role_id;
 
-        return view('admin/showPR', compact('purchase_request'));
+        if ($roleId == 1) {
+            return view('admin/showPR', compact('purchase_request'));
+        } else if ($roleId == 2) {
+            return view('user/showPR', compact('purchase_request'));
+        } else if ($roleId == 3) {
+            return view('sarpras/showPR', compact('purchase_request'));
+        } else if ($roleId == 4) {
+            return view('perencanaan/showPR', compact('purchase_request'));
+        } else if ($roleId == 5) {
+            return view('pengadaan/showPR', compact('purchase_request'));
+        } else if ($roleId == 6) {
+            return view('warek/showPR', compact('purchase_request'));
+        }
     }
 }

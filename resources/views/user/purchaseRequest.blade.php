@@ -1,5 +1,9 @@
+<head>
+    <!-- Tambahkan favicon -->
+    <link rel="shortcut icon" href="{{ asset('Dashbyte/HTML/dist/assets/img/favicon.png') }}">
+    <!-- Jika layout.admin punya bagian head -->
+</head>
 @extends('layout.user')
-
 <div class="main main-app p-3 p-lg-4">
     <div class="card shadow-sm p-lg-4">
         <p class="fs-5 fw-bold">Purchase Request</p>
@@ -49,29 +53,29 @@
                         <td>{{$purchase_request->status_berkas}}</td>
                         <td class="text-center d-flex justify-content-center gap-3">
                             <!-- Detail Button -->
-                            <a href="{{route('showPR.admin', $purchase_request->id)}}" class="btn btn-success btn-sm"><i
+                            <a href="{{route('showPR.user', $purchase_request->id)}}" class="btn btn-success btn-sm"><i
                                     class="ri-file-list-3-line"></i> Detail</a>
 
                             <!-- Edit Button -->
-                            <a href="{{route('formEditPurchaseRequestAdmin', $purchase_request->id)}}"
+                            <a href="{{route('formEditPurchaseRequest.user', $purchase_request->id)}}"
                                 class="btn btn-primary btn-sm">
                                 <i class="ri-edit-box-line"></i> Edit
                             </a>
 
                             <!-- Delete Button with Confirmation -->
                             <a href="#" class="btn btn-danger btn-sm"
-                                onclick="confirmDelete(event, '{{ route('deletePurchaseRequestAdmin', $purchase_request->id) }}')">
+                                onclick="confirmDelete(event, '{{ route('deletePurchaseRequest.user', $purchase_request->id) }}')">
                                 <i class="ri-delete-bin-line"></i> Hapus
                             </a>
 
                             <!-- Tracking Button -->
-                            <a href="{{ route('trackingAdmin', ['purchase_request_id' => $purchase_request->id]) }}"
+                            <a href="{{ route('tracking.user', ['purchase_request_id' => $purchase_request->id]) }}"
                                 class="btn btn-warning btn-sm">
                                 <i class="ri-pin-distance-fill"></i> Tracking
                             </a>
 
                             <!-- Submit Button -->
-                            <a href="{{route('ajukanPP', $purchase_request->id)}}" class="btn btn-secondary btn-sm">
+                            <a href="{{route('ajukanPP.user', $purchase_request->id)}}" class="btn btn-secondary btn-sm">
                                 <i class="ri-arrow-right-circle-fill"></i> Ajukan
                             </a>
                         </td>

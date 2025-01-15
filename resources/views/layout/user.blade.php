@@ -12,9 +12,9 @@
     <meta name="author" content="Themepixels">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('Dashbyte/HTML/dist/assets/img/favicon.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('Dashbyte/HTML/dist/assets/img/U_P.png')}}">
 
-    <title>User - Premium Dashboard Template</title>
+    <title>SIPEBA - Universitas Peradaban</title>
 
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="{{asset('Dashbyte/HTML/dist/lib/remixicon/fonts/remixicon.css')}}">
@@ -40,12 +40,16 @@
                             <span>Dashboard</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('akun.user')}}" class="nav-link"><i class="ri-folder-3-line"></i>
-                            <span>Akun Anggaran</span></a>
+                        <a href="{{route('category.user')}}" class="nav-link"><i class="ri-folder-3-line"></i>
+                            <span>Kategori Item</span></a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('itemUser')}}" class="nav-link"><i class="ri-store-2-fill"></i>
                             <span>Item</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('akun.user')}}" class="nav-link"><i class="ri-wallet-line"></i>
+                            <span>Akun Anggaran</span></a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('PRUSer')}}" class="nav-link"><i class="ri-draft-line"></i>

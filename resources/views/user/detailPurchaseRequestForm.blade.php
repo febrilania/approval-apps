@@ -3,8 +3,7 @@
     <link rel="shortcut icon" href="{{ asset('Dashbyte/HTML/dist/assets/img/favicon.png') }}">
     <!-- Jika layout.admin punya bagian head -->
 </head>
-@extends('layout.admin')
-
+@extends('layout.user')
 <div class="main main-app p-3 p-lg-4">
     <div class="card shadow-sm p-lg-4">
         <p class="fs-5 fw-bold">Add Request</p>
@@ -80,7 +79,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '{{ route('addPurchaseRequest') }}', // Route untuk menambah detail
+                url: '{{ route('addPurchaseRequest.user') }}', // Route untuk menambah detail
                 data: $(this).serialize(),
                 success: function(response) {
                     // Tambahkan detail ke dalam tabel tanpa reload halaman

@@ -98,6 +98,15 @@ Route::middleware(['auth', 'permission:2'])->group(function () {
     Route::get('/user/akunAnggaran', [AkunController::class, 'index'])->name('akun.user');
     Route::get('/user/purchaseRequest/form', [PurchaseRequestController::class, 'showPurchaseRequestForm'])->name('formPR.user');
     Route::post('/user/addDPR', [PurchaseRequestController::class, 'addPurchaseRequest'])->name('addPurchaseRequest.user');
+    Route::get('/user/showPR/{id}', [PurchaseRequestController::class, 'showPR'])->name('showPR.user');
+    Route::get('/user/purchaseRequest/formEdit/{id}', [PurchaseRequestController::class, 'formEdit'])->name('formEditPurchaseRequest.user');
+    Route::put('/user/purchase-request/{id}', [PurchaseRequestController::class, 'update'])->name('purchaseRequest.update.user');
+    Route::get('/user/purchase-request/{purchaseRequest}/delete-detail/{detail}', [PurchaseRequestController::class, 'deleteDetail'])->name('purchaseRequest.deleteDetail.user');
+    Route::delete('/user/deletePurchaseRequest/{id}', [PurchaseRequestController::class, 'deletePurchaseRequest'])->name('deletePurchaseRequest.user');
+    Route::get('/user/ajukanPP/{id}', [PurchaseRequestController::class, 'submitAjukan'])->name('ajukanPP.user');
+    Route::get('/user/tracking/{purchase_request_id}', [ApprovalController::class, 'tracking'])->name('tracking.user');
+    Route::get('/user/category', [CategoryController::class, 'index'])->name('category.user');
+    
 });
 
 
