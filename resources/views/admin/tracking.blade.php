@@ -62,7 +62,8 @@
                 </span>
             </p>
         </div>
-        <a href="javascript:history.back()" class="btn btn-secondary">
+        <a href="javascript:history.back()"
+            class="btn btn-secondary d-flex align-items-middle justify-content-center gap-2">
             <i class="ri-arrow-left-line"></i> Kembali
         </a>
     </div>

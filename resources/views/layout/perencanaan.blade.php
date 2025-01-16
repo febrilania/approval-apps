@@ -28,7 +28,7 @@
 
     <div class="sidebar">
         <div class="sidebar-header">
-            <a href="../" class="sidebar-logo">dashbyte</a>
+            <a href="../" class="sidebar-logo">SIPEBA</a>
         </div><!-- sidebar-header -->
         <div id="sidebarMenu" class="sidebar-body">
             <div class="nav-group show">
@@ -39,7 +39,7 @@
                             <span>Dashboard</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('itemPerencanaan')}}" class="nav-link"><i class="ri-grid-fill"></i>
+                        <a href="{{route('itemPerencanaan')}}" class="nav-link"><i class="ri-store-2-line"></i>
                             <span>Item</span></a>
                     </li>
                     <li class="nav-item">
@@ -59,7 +59,7 @@
                     <img src="{{ asset('storage/items/'.Auth::user()->profile_picture) }}" alt="">
                 </div><!-- sidebar-footer-thumb -->
                 <div class="sidebar-footer-body">
-                    <h6><a href="../pages/profile.html">{{Auth::user()->name}}</a></h6>
+                    <h6><a href="{{route('profilePerencanaan')}}">{{Auth::user()->name}}</a></h6>
                 </div><!-- sidebar-footer-body -->
                 <a id="sidebarFooterMenu" href="" class="dropdown-link"><i class="ri-arrow-down-s-line"></i></a>
             </div><!-- sidebar-footer-top -->

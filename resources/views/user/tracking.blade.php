@@ -1,6 +1,6 @@
 <head>
     <!-- Tambahkan favicon -->
-    <link rel="shortcut icon" href="{{ asset('Dashbyte/HTML/dist/assets/img/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('Dashbyte/HTML/dist/assets/img/U_P.png') }}">
     <!-- Jika layout.admin punya bagian head -->
 </head>
 @extends('layout.user')

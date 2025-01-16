@@ -29,7 +29,7 @@
 
     <div class="sidebar">
         <div class="sidebar-header">
-            <a href="../" class="sidebar-logo">dashbyte</a>
+            <a href="../" class="sidebar-logo">SIPEBA</a>
         </div><!-- sidebar-header -->
         <div id="sidebarMenu" class="sidebar-body">
             <div class="nav-group show">
@@ -73,7 +73,7 @@
 
                 </div><!-- sidebar-footer-thumb -->
                 <div class="sidebar-footer-body">
-                    <h6><a href="../pages/profile.html">{{Auth::user()->name}}</a></h6>
+                    <h6><a href="{{route('profileAdmin')}}">{{Auth::user()->name}}</a></h6>
                 </div><!-- sidebar-footer-body -->
                 <a id="sidebarFooterMenu" href="" class="dropdown-link"><i class="ri-arrow-down-s-line"></i></a>
             </div><!-- sidebar-footer-top -->

@@ -1,6 +1,6 @@
 <head>
     <!-- Tambahkan favicon -->
-    <link rel="shortcut icon" href="{{ asset('Dashbyte/HTML/dist/assets/img/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('Dashbyte/HTML/dist/assets/img/U_P.png')}}">
     <!-- Jika layout.admin punya bagian head -->
 </head>
 @extends('layout.user')
@@ -12,6 +12,20 @@
             <label for="item" class="form-label">Nama Barang</label>
             <input type="text" class="form-control mb-2" name="item_name" value="{{old('item_name')}}" id="item">
             @error('item_name')
+            <div>
+                <small class="text-danger">{{$message}}</small>
+            </div>
+            @enderror
+            <label for="category" class="form-label">Kategori</label>
+            <select class="form-control mb-2" name="category_id" id="category">
+                <option value="" disabled selected>Pilih Kategori</option>
+                @foreach($categories as $category)
+                <option value="{{ $category->id }}" {{ old('category_id')==$category->id ? 'selected' : '' }}>
+                    {{ $category->category_name }}
+                </option>
+                @endforeach
+            </select>
+            @error('category_id')
             <div>
                 <small class="text-danger">{{$message}}</small>
             </div>
@@ -45,7 +59,7 @@
                 <img id="image_preview" src="#" alt="Image Preview" style="display: none; max-width: 200px;">
             </div>
             <button type="submit" class="btn btn-success mt-3">Tambah Data</button>
-            <a href="{{ route('itemUser') }}" class="btn btn-secondary mt-3">Cancel</a>
+            <a href="{{ route('itemAdmin') }}" class="btn btn-secondary mt-3">Cancel</a>
         </form>
     </div>
 </div>

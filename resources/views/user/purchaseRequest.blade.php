@@ -1,6 +1,6 @@
 <head>
     <!-- Tambahkan favicon -->
-    <link rel="shortcut icon" href="{{ asset('Dashbyte/HTML/dist/assets/img/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('Dashbyte/HTML/dist/assets/img/U_P.png') }}">
     <!-- Jika layout.admin punya bagian head -->
 </head>
 @extends('layout.user')
@@ -75,7 +75,8 @@
                             </a>
 
                             <!-- Submit Button -->
-                            <a href="{{route('ajukanPP.user', $purchase_request->id)}}" class="btn btn-secondary btn-sm">
+                            <a href="{{route('ajukanPP.user', $purchase_request->id)}}"
+                                class="btn btn-secondary btn-sm">
                                 <i class="ri-arrow-right-circle-fill"></i> Ajukan
                             </a>
                         </td>

@@ -92,6 +92,7 @@ Route::middleware(['auth', 'permission:1'])->group(function () {
 Route::middleware(['auth', 'permission:2'])->group(function () {
     Route::get('/user/dashboard', [UserController::class, 'index'])->name('dashboardUser');
     Route::get('/user/item', [ItemController::class, 'user'])->name('itemUser');
+    Route::put('user/editItem/{id}', [ItemController::class, 'editItem'])->name('editItem');
     Route::get('/user/editProfile', [AuthController::class, 'editProfile'])->name('editProfileUser');
     Route::get('/user/profile', [AuthController::class, 'profile'])->name('profileUser');
     Route::get('/user/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRUSer');
@@ -106,7 +107,10 @@ Route::middleware(['auth', 'permission:2'])->group(function () {
     Route::get('/user/ajukanPP/{id}', [PurchaseRequestController::class, 'submitAjukan'])->name('ajukanPP.user');
     Route::get('/user/tracking/{purchase_request_id}', [ApprovalController::class, 'tracking'])->name('tracking.user');
     Route::get('/user/category', [CategoryController::class, 'index'])->name('category.user');
-    
+    Route::post('/user/akun', [AkunController::class, 'create'])->name('akun.create.user');
+    Route::get('/user/akun', [AkunController::class, 'index'])->name('akun.index.user');
+    Route::put('/user/akun/{id}', [AkunController::class, 'update'])->name('akun.update.user');
+    Route::delete('/user/akun/{id}/delete', [AkunController::class, 'delete'])->name('akun.delete.user');
 });
 
 
@@ -119,6 +123,7 @@ Route::middleware(['auth', 'permission:3'])->group(function () {
     Route::get('/sarpras/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRsarpras');
     Route::get('/sarpras/approval/{id}', [ApprovalController::class, 'approve'])->name('approvesarpras');
     Route::get('/sarpras/reject/{id}', [ApprovalController::class, 'reject'])->name('rejectSarpras');
+    Route::get('/sarpras/showPR/{id}', [PurchaseRequestController::class, 'showPR'])->name('showPR.sarpras');
 });
 
 
@@ -131,6 +136,7 @@ Route::middleware(['auth', 'permission:4'])->group(function () {
     Route::get('/perencanaan/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRperencanaan');
     Route::get('/perencanaan/approval/{id}', [ApprovalController::class, 'approve'])->name('approveperencanaan');
     Route::get('/perencanaan/reject/{id}', [ApprovalController::class, 'reject'])->name('rejectPerencanaan');
+    Route::get('/perencanaan/showPR/{id}', [PurchaseRequestController::class, 'showPR'])->name('showPR.perencanaan');
 });
 
 

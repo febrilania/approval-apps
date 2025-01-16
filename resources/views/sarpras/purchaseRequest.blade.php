@@ -1,7 +1,13 @@
+<head>
+    <!-- Tambahkan favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('Dashbyte/HTML/dist/assets/img/U_P.png')}}">
+    <!-- Jika layout.admin punya bagian head -->
+</head>
 @extends('layout.sarpras')
-
 <div class="main main-app p-3 p-lg-4">
     <div class="card shadow-sm p-3 p-lg-4">
+        <p class="fs-5 fw-bold">Purchase Request</p>
+
         @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show my-2" role="alert">
             {{ session('success') }}
@@ -35,19 +41,21 @@
                         </td>
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="" class="btn btn-primary btn-sm" title="Detail">
-                                    <i class="ri-edit-box-line"></i>
+                                <a href="{{route('showPR.sarpras', $purchase_request->id)}}"
+                                    class="btn btn-primary btn-sm d-flex align-items-center gap-1" title="Detail">
+                                    <i class="ri-eye-fill"></i> <span>Detail</span>
                                 </a>
                                 <a href="{{ route('approvesarpras', ['id' => $purchase_request->id]) }}"
-                                    class="btn btn-success btn-sm" title="Approve">
-                                    <i class="ri-file-list-3-line"></i>
+                                    class="btn btn-success btn-sm d-flex align-items-center gap-1" title="Approve">
+                                    <i class="ri-check-fill"></i> <span>Setujui</span>
                                 </a>
                                 <a href="{{ route('rejectSarpras', ['id' => $purchase_request->id]) }}"
-                                    class="btn btn-danger btn-sm" title="Reject">
-                                    <i class="ri-delete-bin-line"></i>
+                                    class="btn btn-danger btn-sm d-flex align-items-center gap-1" title="Reject">
+                                    <i class="ri-close-fill"></i> <span>Tolak</span>
                                 </a>
                             </div>
                         </td>
+
                     </tr>
                     @endif
                     @empty

@@ -1,14 +1,16 @@
 <head>
     <!-- Tambahkan favicon -->
-    <link rel="shortcut icon" href="{{ asset('Dashbyte/HTML/dist/assets/img/U_P.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('Dashbyte/HTML/dist/assets/img/U_P.png')}}">
     <!-- Jika layout.admin punya bagian head -->
 </head>
-@extends('layout.user')
+@extends('layout.perencanaan')
+
 <div class="main main-app p-3 p-lg-4">
     <div class="card shadow-sm p-lg-4">
         <!-- Header -->
         <p class="fs-3 fw-bolder">Detail Pengajuan</p>
-        <a href="javascript:history.back()" class="btn btn-secondary">
+        <a href="javascript:history.back()"
+            class="btn btn-secondary d-flex align-items-center gap-1 justify-content-center">
             <i class="ri-arrow-left-line"></i> Kembali
         </a>
         <hr>
@@ -63,7 +65,8 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Harga:</strong> {{ $detail->item->unit_price }}</li>
                             <li class="list-group-item"><strong>Jumlah:</strong> {{ $detail->quantity }}</li>
-                            <li class="list-group-item"><strong>Status:</strong> {{ $detail->status_barang }}</li>
+                            <li class="list-group-item"><strong>Status Barang:</strong> {{ $detail->status_barang }}
+                            </li>
                             <li class="list-group-item"><strong>Alasan:</strong> {{ $detail->alasan_pembelian ?? '-' }}
                             </li>
                             <li class="list-group-item"><strong>Akun Anggaran:</strong> {{

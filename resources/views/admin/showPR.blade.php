@@ -64,7 +64,8 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Harga:</strong> {{ $detail->item->unit_price }}</li>
                             <li class="list-group-item"><strong>Jumlah:</strong> {{ $detail->quantity }}</li>
-                            <li class="list-group-item"><strong>Status:</strong> {{ $detail->status_barang }}</li>
+                            <li class="list-group-item"><strong>Status Barang:</strong> {{ $detail->status_barang }}
+                            </li>
                             <li class="list-group-item"><strong>Alasan:</strong> {{ $detail->alasan_pembelian ?? '-' }}
                             </li>
                             <li class="list-group-item"><strong>Akun Anggaran:</strong> {{

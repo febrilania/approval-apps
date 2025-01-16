@@ -113,25 +113,26 @@ class ItemController extends Controller
             Storage::delete('public/items' . $item->image);
         }
         $item->delete();
-        if (Auth::user()->role_id == 1) {
-            return redirect('admin/item')->with(['success' => 'Data berhasil dihapus']);
-        } elseif (Auth::user()->role_id == 2) {
-            return redirect('user/item')->with(['success' => 'Data berhasil dihapus']);
-        } elseif (Auth::user()->role_id == 3) {
-            return redirect('sarpras/item')->with(['success' => 'Data berhasil dihapus']);
-        } elseif (Auth::user()->role_id == 4) {
-            return redirect('perencanaan/item')->with(['success' => 'Data berhasil dihapus']);
-        } elseif (Auth::user()->role_id == 5) {
-            return redirect('pengadaan/item')->with(['success' => 'Data berhasil dihapus']);
-        } else {
-            return redirect('wakilRektor2/item')->with(['success' => 'Data berhasil dihapus']);
-        }
+        return redirect()->back()->with("success", "data berhasil dihapus");
     }
 
     public function detailItem($id)
     {
         $item = Item::findOrFail($id);
-        return view('admin/detailItem', compact('item'));
+        $roleId = Auth::user()->role_id;
+        if ($roleId === 1) {
+            return view('admin/detailItem', compact('item'));
+        } else if ($roleId === 2) {
+            return view('user/detailItem', compact('item'));
+        } else if ($roleId === 3) {
+            return view('sarpras/detailItem', compact('item'));
+        } else if ($roleId === 4) {
+            return view('perencanaan/detailItem', compact('item'));
+        } else if ($roleId === 5) {
+            return view('pengadaan/detailItem', compact('item'));
+        } else if ($roleId === 6) {
+            return view('warek/detailItem', compact('item'));
+        }
     }
 
     public function editItem(Request $request, $id)
@@ -171,6 +172,6 @@ class ItemController extends Controller
         $item->save();
 
         // Redirect kembali ke halaman admin/item dengan pesan sukses
-        return redirect('admin/item')->with('success', 'Data item berhasil diubah');
+        return redirect()->back()->with('success', 'Data item berhasil diubah');
     }
 }

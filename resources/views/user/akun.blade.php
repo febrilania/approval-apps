@@ -1,6 +1,6 @@
 <head>
     <!-- Tambahkan favicon -->
-    <link rel="shortcut icon" href="{{ asset('Dashbyte/HTML/dist/assets/img/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('Dashbyte/HTML/dist/assets/img/U_P.png') }}">
     <!-- Jika layout.admin punya bagian head -->
 </head>
 @extends('layout.user')
@@ -30,7 +30,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('akun.create') }}" method="post">
+                        <form action="{{ route('akun.create.user') }}" method="post">
                             @csrf
                             @method('post')
                             <div class="mb-3">
@@ -82,7 +82,7 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('akun.update', $akun->id) }}" method="POST">
+                                        <form action="{{ route('akun.update.user', $akun->id) }}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <div class="mb-3">
@@ -102,7 +102,7 @@
                         </div>
 
                         <td class="text-center">
-                            <form action="{{ route('akun.delete', $akun->id) }}" method="post"
+                            <form action="{{ route('akun.delete.user', $akun->id) }}" method="post"
                                 id="deleteForm{{ $akun->id }}">
                                 @csrf
                                 @method('delete')
