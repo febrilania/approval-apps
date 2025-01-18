@@ -149,6 +149,9 @@ Route::middleware(['auth', 'permission:5'])->group(function () {
     Route::get('/pengadaan/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRpengadaan');
     Route::get('/pengadaan/approval/{id}', [ApprovalController::class, 'approve'])->name('approvepengadaan');
     Route::get('/pengadaan/reject/{id}', [ApprovalController::class, 'reject'])->name('rejectPengadaan');
+    Route::get('/pengadaan/showPR/{id}', [PurchaseRequestController::class, 'showPR'])->name('showPR.pengadaan');
+    Route::get('/pengadaan/purchaseRequest/{id}', [PurchaseRequestController::class, 'formEdit'])->name('formEditPurchaseRequestPengadaan');
+    Route::put('/user/purchase-request/{id}', [PurchaseRequestController::class, 'update'])->name('purchaseRequest.update.pengadaan');
 });
 
 

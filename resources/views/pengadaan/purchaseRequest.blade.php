@@ -1,3 +1,6 @@
+<!-- Tambahkan favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="{{asset('Dashbyte/HTML/dist/assets/img/U_P.png')}}">
+<!-- Jika layout.admin punya bagian head -->
 @extends('layout.pengadaan')
 
 <div class="main main-app p-3 p-lg-4">
@@ -35,16 +38,21 @@
                         </td>
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="" class="btn btn-primary btn-sm" title="Detail">
-                                    <i class="ri-edit-box-line"></i>
+                                <a href="{{route('showPR.pengadaan', $purchase_request->id)}}"
+                                    class="btn btn-primary btn-sm d-flex align-items-center gap-1" title="Detail">
+                                    <i class="ri-file-list-3-line"></i> <span>Detail</span>
+                                </a>
+                                <a href="{{route('formEditPurchaseRequestPengadaan', $purchase_request->id)}}"
+                                    class="btn btn-warning btn-sm d-flex align-items-center gap-1">
+                                    <i class="ri-edit-box-line"></i> <span>Edit</span>
                                 </a>
                                 <a href="{{ route('approvepengadaan', ['id' => $purchase_request->id]) }}"
-                                    class="btn btn-success btn-sm" title="Approve">
-                                    <i class="ri-file-list-3-line"></i>
+                                    class="btn btn-success btn-sm d-flex align-items-center gap-1" title="Approve">
+                                    <i class="ri-check-fill"></i><span>Setujui</span>
                                 </a>
                                 <a href="{{ route('rejectPengadaan', ['id' => $purchase_request->id]) }}"
-                                    class="btn btn-danger btn-sm" title="Reject">
-                                    <i class="ri-delete-bin-line"></i>
+                                    class="btn btn-danger btn-sm d-flex align-items-center gap-1" title="Reject">
+                                    <i class="ri-close-fill"></i><span>Tolak</span>
                                 </a>
                             </div>
                         </td>

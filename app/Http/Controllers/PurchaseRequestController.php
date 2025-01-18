@@ -16,45 +16,45 @@ use Illuminate\Support\Facades\Storage;
 class PurchaseRequestController extends Controller
 {
     public function index()
-{
-    $userId = Auth::id(); // ID user yang sedang login
-    $roleId = Auth::user()->role_id; // ID role user yang sedang login
+    {
+        $userId = Auth::id(); // ID user yang sedang login
+        $roleId = Auth::user()->role_id; // ID role user yang sedang login
 
-    // Administrator bisa melihat semua request
-    if ($roleId === 1) {
-        // Ambil semua purchase request tanpa filter berdasarkan user atau approver
-        $purchase_requests = PurchaseRequest::with('user', 'approvals')->get();
-    } elseif ($roleId === 2) { // Pembuat request
-        // Pembuat request hanya bisa melihat request mereka sendiri berdasarkan requestor_id
-        $purchase_requests = PurchaseRequest::whereHas('user', function ($query) use ($userId) {
-            $query->where('id', $userId); // Memastikan hanya request yang dibuat oleh user yang terlihat
-        })->with('user', 'approvals')->get();
-    } else { // Role selain Administrator dan Pembuat request (misalnya approver)
-        // Approver hanya bisa melihat purchase request yang menjadi giliran mereka
-        $purchase_requests = PurchaseRequest::whereHas('approvals', function ($query) use ($userId) {
-            $query->where('approver_id', $userId)
-                ->where('is_current_stage', true);
-        })->with('user', 'approvals')->get();
+        // Administrator bisa melihat semua request
+        if ($roleId === 1) {
+            // Ambil semua purchase request tanpa filter berdasarkan user atau approver
+            $purchase_requests = PurchaseRequest::with('user', 'approvals')->get();
+        } elseif ($roleId === 2) { // Pembuat request
+            // Pembuat request hanya bisa melihat request mereka sendiri berdasarkan requestor_id
+            $purchase_requests = PurchaseRequest::whereHas('user', function ($query) use ($userId) {
+                $query->where('id', $userId); // Memastikan hanya request yang dibuat oleh user yang terlihat
+            })->with('user', 'approvals')->get();
+        } else { // Role selain Administrator dan Pembuat request (misalnya approver)
+            // Approver hanya bisa melihat purchase request yang menjadi giliran mereka
+            $purchase_requests = PurchaseRequest::whereHas('approvals', function ($query) use ($userId) {
+                $query->where('approver_id', $userId)
+                    ->where('is_current_stage', true);
+            })->with('user', 'approvals')->get();
+        }
+
+        // Ambil informasi requestor (jika diperlukan untuk view)
+        $requestor_id = PurchaseRequest::with('user')->get();
+
+        // Arahkan ke view sesuai role user
+        if ($roleId === 1) { // Admin
+            return view('admin/purchaseRequest', compact('purchase_requests', 'requestor_id'));
+        } elseif ($roleId === 2) { // Pembuat request
+            return view('user/purchaseRequest', compact('purchase_requests', 'requestor_id'));
+        } elseif ($roleId === 3) { // Sarpras
+            return view('sarpras/purchaseRequest', compact('purchase_requests', 'requestor_id'));
+        } elseif ($roleId === 4) { // Perencanaan
+            return view('perencanaan/purchaseRequest', compact('purchase_requests', 'requestor_id'));
+        } elseif ($roleId === 5) { // Pengadaan
+            return view('pengadaan/purchaseRequest', compact('purchase_requests', 'requestor_id'));
+        } elseif ($roleId === 6) { // Warek
+            return view('warek/purchaseRequest', compact('purchase_requests', 'requestor_id'));
+        }
     }
-
-    // Ambil informasi requestor (jika diperlukan untuk view)
-    $requestor_id = PurchaseRequest::with('user')->get();
-
-    // Arahkan ke view sesuai role user
-    if ($roleId === 1) { // Admin
-        return view('admin/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-    } elseif ($roleId === 2) { // Pembuat request
-        return view('user/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-    } elseif ($roleId === 3) { // Sarpras
-        return view('sarpras/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-    } elseif ($roleId === 4) { // Perencanaan
-        return view('perencanaan/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-    } elseif ($roleId === 5) { // Pengadaan
-        return view('pengadaan/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-    } elseif ($roleId === 6) { // Warek
-        return view('warek/purchaseRequest', compact('purchase_requests', 'requestor_id'));
-    }
-}
 
 
     public function showPurchaseRequestForm()
@@ -63,7 +63,7 @@ class PurchaseRequestController extends Controller
         session()->forget('purchase_request_id');
 
         $roleId = Auth::user()->role_id;
-        
+
 
         $items = Item::all();
         $akun_anggaran = AkunAnggaran::all();
@@ -219,10 +219,12 @@ class PurchaseRequestController extends Controller
             return view('admin.formEditPR', compact('items', 'akun_anggaran', 'purchaseRequest', 'details'));
         } else if ($purchaseRequest->status_berkas == "draft" && ($user_id == 5 || $roleId == 2)) {
             return view('user.formEditPR', compact('items', 'akun_anggaran', 'purchaseRequest', 'details'));
+        } elseif ($roleId == 5) {
+            return view('pengadaan.formEditPR', compact('items', 'akun_anggaran', 'purchaseRequest', 'details'));
         } else {
             return redirect()->back()->with('error', 'Status berkas bukan draft, tidak bisa diubah kecuali pengadaan barang');
         }
-        
+
         // Mengirimkan data ke view
     }
 
@@ -313,8 +315,7 @@ class PurchaseRequestController extends Controller
         // Hapus detail tersebut
         $detail->delete();
 
-        return redirect()->route('formEditPurchaseRequest.user', $purchaseRequestId)
-            ->with('success', 'Detail Purchase Request berhasil dihapus.');
+        return redirect()->back()->with('succes', 'Detail Purchase berhasil dihapus');
     }
 
     public function showPR($id)
