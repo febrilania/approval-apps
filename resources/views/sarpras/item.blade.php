@@ -1,5 +1,9 @@
+<head>
+    <!-- Tambahkan favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('Dashbyte/HTML/dist/assets/img/U_P.png')}}">
+    <!-- Jika layout.admin punya bagian head -->
+</head>
 @extends('layout.sarpras')
-
 <div class="main main-app p-3 p-lg-4">
     <div class="card shadow-sm p-lg-4">
         <p class="fs-5 fw-bold">Item</p>

@@ -67,7 +67,7 @@
                 @enderror
             </div>
             <button type="submit" class="btn btn-success mt-3">Update User</button>
-            <a href="{{route('dashboardPengadaan')}}" class="btn btn-secondary mt-3">Cancel</a>
+            <a href="{{route('dashboardPengadaan')}}" class="btn btn-secondary mt-3">Kembali</a>
         </form>
     </div>
 </div>

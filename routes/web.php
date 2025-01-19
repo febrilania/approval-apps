@@ -164,6 +164,7 @@ Route::middleware(['auth', 'permission:6'])->group(function () {
     Route::get('/wakilRektor2/purchaseRequest', [PurchaseRequestController::class, 'index'])->name('PRwarek');
     Route::get('/wakilrektor2/approval/{id}', [ApprovalController::class, 'approve'])->name('approveWarek');
     Route::get('/wakilrektor2/reject/{id}', [ApprovalController::class, 'reject'])->name('rejectWarek');
+    Route::get('/wakilrektor2/showPR/{id}', [PurchaseRequestController::class, 'showPR'])->name('showPR.warek');
 });
 
 Route::middleware(['auth'])->group(function () {

@@ -1,3 +1,8 @@
+<head>
+    <!-- Tambahkan favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('Dashbyte/HTML/dist/assets/img/U_P.png')}}">
+    <!-- Jika layout.admin punya bagian head -->
+</head>
 @extends('layout.perencanaan')
 <div class="main main-app p-3 p-lg-4">
     <div class="card shadow-sm p-lg-4">
@@ -64,7 +69,7 @@
                 @enderror
             </div>
             <button type="submit" class="btn btn-success mt-3">Update User</button>
-            <a href="{{route('dashboardPerencanaan')}}" class="btn btn-secondary mt-3">Cancel</a>
+            <a href="{{route('dashboardPerencanaan')}}" class="btn btn-secondary mt-3">Kembali</a>
         </form>
     </div>
 </div>

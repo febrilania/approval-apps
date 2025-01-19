@@ -40,7 +40,7 @@
                             <span>Dashboard</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('itemWarek')}}" class="nav-link"><i class="ri-grid-fill"></i>
+                        <a href="{{route('itemWarek')}}" class="nav-link"><i class="ri-store-2-line"></i>
                             <span>Item</span></a>
                     </li>
                     <li class="nav-item">
