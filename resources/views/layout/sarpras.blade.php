@@ -47,10 +47,10 @@
                         <a href="{{route('PRsarpras')}}" class="nav-link"><i class="ri-draft-line"></i>
                             <span>Request</span></a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="#" class="nav-link"><i class="ri-file-list-line"></i>
                             <span>Report</span></a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div><!-- nav-group -->
         </div><!-- sidebar-body -->
